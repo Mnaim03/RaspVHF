@@ -24,9 +24,10 @@ except subprocess.CalledProcessError:
 #invio valori al mio arduino...
 
 # Configura la connessione seriale
+arduino = serial.Serial(serial_port, 9600)
 time.sleep(2)  # Attendi che la connessione si stabilisca
 
 # Invia valori 0 e 1 in modo ciclico con attesa
 for flag in [0, 1]:
-    serial_port.write(f"{flag}\n".encode())
+    arduino.write(f"{flag}\n".encode())
     time.sleep(0.1)
