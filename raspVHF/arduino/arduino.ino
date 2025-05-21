@@ -24,7 +24,7 @@ void printWait() {
     lcd.print("Attendere... ");
 
     lcd.setCursor(0, 1);
-    lcd.print("Carcamento in Corso");
+    lcd.print("Caricamento !");
 }
 
 void printMessage(bool flag) {
