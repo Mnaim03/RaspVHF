@@ -1,6 +1,6 @@
 import subprocess
 
-sketch_path = "/Documents/RaspVHF/raspVHF/arduino/arduino.ino"
+sketch_path = "/home/user1/Documents/RaspVHF/raspVHF/arduino/arduino.ino"
 fqbn = "arduino:avr:uno"
 serial_port = "/dev/ttyACM0"
 
