@@ -18,6 +18,15 @@ void setup() {
 }
 
 
+void printWait() {
+  lcd.clear(); // pulisce lo schermo
+  lcd.setCursor(0, 0);
+    lcd.print("Attendere... ");
+
+    lcd.setCursor(0, 1);
+    lcd.print("Carcamento in Corso");
+}
+
 void printMessage(bool flag) {
   lcd.clear(); // pulisce lo schermo
   lcd.setCursor(0, 0);
@@ -35,7 +44,7 @@ void printMessage(bool flag) {
 }
 
 void buzzOn(){
-  // digitalWrite(buzz, HIGH); // suona
+  digitalWrite(buzz, HIGH); // suona
   delay(1000);
   digitalWrite(buzz, LOW);  // silenzio
   delay(500);
@@ -54,9 +63,19 @@ void fxCalm(){
     digitalWrite(green, HIGH);
 }
 
-void loop() {  
-  //fxAlert();
-  delay(1000);
-  fxCalm();
 
+void loop() {
+    while(!Serial.available()){ // attesa valore seriale
+        printWait();
+    }
+
+    //fine attesa
+    flag = Serial.parseInt();
+    if(flag==1){
+        fxAlert();
+    }else{
+        fxCalm();
+    }
+
+    delay(1000);
 }
