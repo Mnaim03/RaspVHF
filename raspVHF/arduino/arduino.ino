@@ -65,7 +65,7 @@ void fxCalm(){
 }
 
 void loop() {
-    Serial.begin(9600);
+    Serial.begin(9600); //connessione seriale alla porta
 
     while(!Serial.available()){ // attesa valore seriale
         printWait();
