@@ -63,15 +63,15 @@ void fxCalm(){
     digitalWrite(green, HIGH);
 }
 
-
+int input = 1; // valore dato dal raspberry attraverso python
 void loop() {
     while(!Serial.available()){ // attesa valore seriale
         printWait();
     }
 
     //fine attesa
-    flag = Serial.parseInt();
-    if(flag==1){
+    input = Serial.parseInt(); //lettoura porta seriale
+    if(input==1){
         fxAlert();
     }else{
         fxCalm();
