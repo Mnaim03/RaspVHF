@@ -1,4 +1,4 @@
-cd /home/user1/Documents/RaspVHF/raspVHF
+cd /home/user1/Documents/RaspVHF/raspVHF #cartella del git
 git restore . #elimino eventuali cambiamenti fatti dal terminale raspberry
 git pull #faccio una pull di aggiornamento
 
