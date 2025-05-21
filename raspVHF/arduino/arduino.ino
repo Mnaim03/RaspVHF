@@ -2,6 +2,7 @@
 #include <LiquidCrystal.h>
 
 int frequence = 157;
+int input = 1; // valore dato dal raspberry attraverso python
 
 const int buzz = 4;
 const int red = 2, green = 3;
@@ -63,7 +64,6 @@ void fxCalm(){
     digitalWrite(green, HIGH);
 }
 
-int input = 1; // valore dato dal raspberry attraverso python
 void loop() {
     while(!Serial.available()){ // attesa valore seriale
         printWait();

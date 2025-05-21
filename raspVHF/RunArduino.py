@@ -33,7 +33,7 @@ try:
         for flag in [0, 1]:
             arduino.write(f"{flag}\n".encode())
             print(f"Inviato: {flag}")
-            time.sleep(1)
+            time.sleep(10)
 except KeyboardInterrupt: #chiusura da tastiera
     print("Interrotto dall'utente")
 finally:
