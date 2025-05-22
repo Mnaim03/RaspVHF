@@ -22,10 +22,13 @@ void setup() {
 void printWait() {
   lcd.clear(); // pulisce lo schermo
   lcd.setCursor(0, 0);
-    lcd.print("___Attendere____");
+  lcd.print("___Attendere____");
 
-    lcd.setCursor(0, 1);
-    lcd.print("___Caricamento__");
+  lcd.setCursor(0, 1);
+  lcd.print("___Caricamento__");
+
+  digitalWrite(red, HIGH);
+  digitalWrite(green, HIGH);
 }
 
 void printFrequenza(){
@@ -66,6 +69,9 @@ void done(){
     lcd.print(frequence);
     lcd.setCursor(0, 1);
     lcd.print("___RICEZIONE____");
+
+    digitalWrite(red, HIGH);
+    digitalWrite(green, HIGH);
 }
 
 void buzzOn(){
