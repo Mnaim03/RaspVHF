@@ -38,15 +38,17 @@ void printFrequenza(){
 }
 
 void fxAlert(){
+  printFrequenza();
   lcd.setCursor(0, 1);
   lcd.print("Intercettazione");
 
-    digitalWrite(green, LOW);
-    digitalWrite(red, HIGH);
-    buzzOn();
+  digitalWrite(green, LOW);
+  digitalWrite(red, HIGH);
+  buzzOn();
 }
 
 void fxCalm(){
+  printFrequenza();
   lcd.setCursor(0, 1);
   lcd.print("No Anomalie");
 
@@ -105,8 +107,6 @@ void loop() {
 
   input = lav;
 
-  printFrequenza();
-
   if (input == 1) {
     fxCalm();
   } else if (input == 2) {
@@ -116,6 +116,4 @@ void loop() {
   }
 
   flag_firstRun = true;
-
-
 }
