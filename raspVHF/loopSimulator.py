@@ -9,13 +9,13 @@ serial_port = "/dev/ttyACM0"
 arduino = serial.Serial(serial_port, 9600)
 time.sleep(2)  # Attendi che la connessione si stabilisca
 
-# Invia valori 0 e 1 in modo ciclico con attesa
+# Invia valori 1 e 2 in modo ciclico con attesa
 try:
     while True: #ciclo infinito
         for flag in [1, 2]:
 
             #stampa seriale
-            arduino.write(f"{152}\n".encode())
+            #arduino.write(f"{152}\n".encode())
 
             # 1 -> No Anomalia
             # 2 -> Anomalia
@@ -29,6 +29,5 @@ except KeyboardInterrupt: #chiusura da tastiera
     # stampa seriale
     # 3 -> Fine Ricezione
     arduino.write(f"{3}\n".encode()) #printo fine esecuzione
-
 finally:
     arduino.close()
