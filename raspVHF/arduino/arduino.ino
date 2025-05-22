@@ -3,6 +3,7 @@
 
 int frequence = 157;
 int input = 1; // valore dato dal raspberry attraverso python
+int flag_firstRun = 0; //verifica se effittivamente è il primo avvio del raspberry
 
 const int buzz = 4;
 const int red = 2, green = 3;

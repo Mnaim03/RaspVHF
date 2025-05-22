@@ -12,7 +12,7 @@ time.sleep(2)  # Attendi che la connessione si stabilisca
 # Invia valori 0 e 1 in modo ciclico con attesa
 try:
     while True: #ciclo infinito
-        for flag in [0, 1]:
+        for flag in [0, 0]:
             arduino.write(f"{flag}\n".encode())
             print(f"Inviato: {flag}")
             time.sleep(10)
