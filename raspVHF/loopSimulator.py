@@ -15,6 +15,10 @@ try:
         for flag in [1, 2]:
 
             #stampa seriale
+            arduino.write(f"{152}\n".encode())
+
+            # 1 -> No Anomalia
+            # 2 -> Anomalia
             arduino.write(f"{flag}\n".encode())
             print(f"Inviato: {flag}")
 
@@ -22,6 +26,8 @@ try:
 except KeyboardInterrupt: #chiusura da tastiera
 
     print("Interrotto dall'utente")
+    # stampa seriale
+    # 3 -> Fine Ricezione
     arduino.write(f"{3}\n".encode()) #printo fine esecuzione
 
 finally:
