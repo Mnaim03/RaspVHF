@@ -15,7 +15,7 @@ try:
         for flag in [1, 2]:
 
             #stampa seriale
-            #arduino.write(f"{152}\n".encode())
+            arduino.write(f"152\n".encode())
 
             # 1 -> No Anomalia
             # 2 -> Anomalia

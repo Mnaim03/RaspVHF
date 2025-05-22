@@ -105,7 +105,7 @@ void loop() {
   int lav;
   do {
 
-    //frequence = Serial.parseInt(); //leggo frequenza
+    frequence = Serial.parseInt(); //leggo frequenza
     lav = Serial.parseInt(); // legge il numero segnale
     // svuota eventuali caratteri extra (come \n o spazi)
     while (Serial.available()) Serial.read();
