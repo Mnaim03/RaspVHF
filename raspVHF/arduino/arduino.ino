@@ -19,7 +19,6 @@ void setup() {
   pinMode(green, OUTPUT);
 }
 
-
 void printWait() {
   lcd.clear(); // pulisce lo schermo
   lcd.setCursor(0, 0);
@@ -28,7 +27,6 @@ void printWait() {
     lcd.setCursor(0, 1);
     lcd.print("___Caricamento__");
 }
-
 
 void printFrequenza(){
   lcd.clear(); // pulisce lo schermo
@@ -56,7 +54,6 @@ void fxCalm(){
 }
 
 void done(){
-    printMessage(false);
     digitalWrite(red, LOW);
     digitalWrite(green, LOW);
 
@@ -95,10 +92,6 @@ void loop() {
         printWait();
     }
 
-    //Lascio Schermata fissa finchè non mi ritrovo
-    // un'altro valore in ingresso
-    while(!Serial.available()){}
-
     //fine attesa
     input = Serial.parseInt(); // lettoura porta seriale
     //INSERIRE LETTURA FREQUENZA
@@ -112,6 +105,9 @@ void loop() {
     } else if(input==2){
         done();
     }
+
+    //Lascio Schermata fissa finchè non mi ritrovo un'altro valore in ingresso
+    while(!Serial.available()){}
 
     flag_firstRun = true;
 }
