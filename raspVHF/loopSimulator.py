@@ -20,6 +20,9 @@ try:
 
             time.sleep(5)
 except KeyboardInterrupt: #chiusura da tastiera
+
     print("Interrotto dall'utente")
+    arduino.write(f"{2}\n".encode()) #printo fine esecuzione
+
 finally:
     arduino.close()

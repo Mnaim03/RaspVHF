@@ -30,33 +30,42 @@ void printWait() {
 }
 
 
-void printMessage(bool flag) {
+void printFrequenza(){
   lcd.clear(); // pulisce lo schermo
+
   lcd.setCursor(0, 0);
-    lcd.print("Frequneza = ");
-    lcd.print(frequence);
-
-  if(flag==true){
-    lcd.setCursor(0, 1);
-    lcd.print("Intercettazione");
-  } else {
-    lcd.setCursor(0, 1);
-    lcd.print("No Anomalie");
-  }
-
+  lcd.print("Frequneza = ");
+  lcd.print(frequence);
 }
 
 void fxAlert(){
-    printMessage(true);
+  lcd.setCursor(0, 1);
+  lcd.print("Intercettazione");
+
     digitalWrite(green, LOW);
     digitalWrite(red, HIGH);
     buzzOn();
 }
 
 void fxCalm(){
+  lcd.setCursor(0, 1);
+  lcd.print("No Anomalie");
+
+  digitalWrite(red, LOW);
+  digitalWrite(green, HIGH);
+}
+
+void done(){
     printMessage(false);
     digitalWrite(red, LOW);
-    digitalWrite(green, HIGH);
+    digitalWrite(green, LOW);
+
+    lcd.clear(); // pulisce lo schermo
+    lcd.setCursor(0, 0);
+    lcd.print("______FINE______");
+    lcd.print(frequence);
+    lcd.setCursor(0, 1);
+    lcd.print("___RICEZIONE____");
 }
 
 void buzzOn(){
@@ -92,10 +101,16 @@ void loop() {
 
     //fine attesa
     input = Serial.parseInt(); // lettoura porta seriale
+    //INSERIRE LETTURA FREQUENZA
+
+    printFrequenza();
+
     if(input==1){
         fxAlert();
-    }else{
+    }else if(input==0){
         fxCalm();
+    } else if(input==2){
+        done();
     }
 
     flag_firstRun = true;
