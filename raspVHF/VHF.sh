@@ -1,7 +1,6 @@
 python3 -m venv venv
 source venv/bin/activate
 
-sudo apt remove xtrx-dkms
-pip install pyrtlsdr
+pip install matplotlib scipy
 
 python3 VHF.py
