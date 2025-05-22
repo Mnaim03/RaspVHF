@@ -29,6 +29,7 @@ void printWait() {
     lcd.print("___Caricamento__");
 }
 
+
 void printMessage(bool flag) {
   lcd.clear(); // pulisce lo schermo
   lcd.setCursor(0, 0);
@@ -45,13 +46,6 @@ void printMessage(bool flag) {
 
 }
 
-void buzzOn(){
-  digitalWrite(buzz, HIGH); // suona
-  delay(1000);
-  digitalWrite(buzz, LOW);  // silenzio
-  delay(500);
-}
-
 void fxAlert(){
     printMessage(true);
     digitalWrite(green, LOW);
@@ -64,6 +58,21 @@ void fxCalm(){
     digitalWrite(red, LOW);
     digitalWrite(green, HIGH);
 }
+
+void buzzOn(){
+  digitalWrite(buzz, HIGH); // suona 1
+  delay(250);
+  digitalWrite(buzz, LOW);  // silenzio
+  delay(250);
+  digitalWrite(buzz, HIGH); // suona 2
+  delay(250);
+  digitalWrite(buzz, LOW);  // silenzio
+  delay(250);
+  digitalWrite(buzz, HIGH); // suona 2
+  delay(500);
+  digitalWrite(buzz, LOW);  // silenzio
+}
+
 
 void loop() {
     Serial.begin(9600); //connessione seriale alla porta
@@ -78,7 +87,7 @@ void loop() {
     while(!Serial.available()){}
 
     //fine attesa
-    input = Serial.parseInt(); //lettoura porta seriale
+    input = Serial.parseInt(); // lettoura porta seriale
     if(input==1){
         fxAlert();
     }else{

@@ -13,8 +13,11 @@ time.sleep(2)  # Attendi che la connessione si stabilisca
 try:
     while True: #ciclo infinito
         for flag in [0, 1]:
+
+            #stampa seriale
             arduino.write(f"{flag}\n".encode())
             print(f"Inviato: {flag}")
+
             time.sleep(5)
 except KeyboardInterrupt: #chiusura da tastiera
     print("Interrotto dall'utente")
