@@ -117,16 +117,5 @@ void loop() {
 
   flag_firstRun = true;
 
-  // ATTENDI UN NUOVO VALORE DIVERSO
-  while (true) {
-    if (Serial.available()) {
-      int next = Serial.parseInt();
-      while (Serial.available()) Serial.read(); // pulizia
-      if (next != input) {
-        input = next;
-        break;
-      }
-    }
-    delay(200); // evita di sovraccaricare il microcontrollore
-  }
+
 }
