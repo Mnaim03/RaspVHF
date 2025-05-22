@@ -2,7 +2,7 @@
 #include <LiquidCrystal.h>
 
 int frequence = 157;
-int input = 1; // valore dato dal raspberry attraverso python
+int input = -1; // valore dato dal raspberry attraverso python
 int flag_firstRun = false; //verifica se effittivamente è il primo avvio del raspberry
 
 const int buzz = 4;
@@ -32,8 +32,9 @@ void printFrequenza(){
   lcd.clear(); // pulisce lo schermo
 
   lcd.setCursor(0, 0);
-  lcd.print("Frequneza = ");
+  lcd.print("f = ");
   lcd.print(frequence);
+  lcd.print(" Hz");
 }
 
 void fxAlert(){
@@ -92,8 +93,12 @@ void loop() {
         printWait();
     }
 
-    //fine attesa
-    input = Serial.parseInt(); // lettoura porta seriale
+    int lav;
+    do{
+        lav = Serial.parseInt(); // lettoura porta seriale
+    }while(lav==input)
+
+    input=lav;
     //INSERIRE LETTURA FREQUENZA
 
     printFrequenza();
