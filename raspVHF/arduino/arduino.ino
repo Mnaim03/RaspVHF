@@ -96,7 +96,7 @@ void loop() {
     int lav;
     do{
         lav = Serial.parseInt(); // lettoura porta seriale
-    }while(lav==input)
+    }while(lav==input);
 
     input=lav;
     //INSERIRE LETTURA FREQUENZA
