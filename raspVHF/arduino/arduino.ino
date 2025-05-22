@@ -3,7 +3,7 @@
 
 int frequence = 157;
 int input = 1; // valore dato dal raspberry attraverso python
-int flag_firstRun = 0; //verifica se effittivamente è il primo avvio del raspberry
+int flag_firstRun = false; //verifica se effittivamente è il primo avvio del raspberry
 
 const int buzz = 4;
 const int red = 2, green = 3;
@@ -23,10 +23,10 @@ void setup() {
 void printWait() {
   lcd.clear(); // pulisce lo schermo
   lcd.setCursor(0, 0);
-    lcd.print("Attendere... ");
+    lcd.print("___Attendere____");
 
     lcd.setCursor(0, 1);
-    lcd.print("Caricamento !");
+    lcd.print("___Caricamento__");
 }
 
 void printMessage(bool flag) {
@@ -68,9 +68,14 @@ void fxCalm(){
 void loop() {
     Serial.begin(9600); //connessione seriale alla porta
 
-    while(!Serial.available()){ // attesa valore seriale
+    //Attendo il valore seriale al primo avvio
+    while(!Serial.available() && flag_firstRun==false){
         printWait();
     }
+
+    //Lascio Schermata fissa finchè non mi ritrovo
+    // un'altro valore in ingresso
+    while(!Serial.available()){}
 
     //fine attesa
     input = Serial.parseInt(); //lettoura porta seriale
@@ -80,5 +85,5 @@ void loop() {
         fxCalm();
     }
 
-    delay(1000);
+    flag_firstRun = true;
 }
