@@ -67,7 +67,7 @@ void buzzOn(){
   digitalWrite(buzz, HIGH); // suona 2
   delay(250);
   digitalWrite(buzz, LOW);  // silenzio
-  delay(500);
+  delay(250);
   digitalWrite(buzz, HIGH); // suona 3
   delay(150);
   digitalWrite(buzz, LOW);  // silenzio
