@@ -13,13 +13,14 @@ time.sleep(2)  # Attendi che la connessione si stabilisca
 try:
     while True: #ciclo infinito
         for flag in [1, 2]:
+            
+            # 1 -> No Anomalia
+            # 2 -> Anomalia
+            arduino.write(f"{flag}\n".encode())
 
             #stampa seriale
             arduino.write(f"152\n".encode())
 
-            # 1 -> No Anomalia
-            # 2 -> Anomalia
-            arduino.write(f"{flag}\n".encode())
             print(f"Inviato: {flag}")
 
             time.sleep(5)

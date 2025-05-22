@@ -108,8 +108,9 @@ void loop() {
 
     // Leggo valori da seriale (frequenza + input)
     if (Serial.available()) {
-      frequence = Serial.parseInt();
+
       lav = Serial.parseInt();
+      frequence = Serial.parseInt();
       while (Serial.available()) Serial.read(); // pulizia
 
       // Ignora valori uguali al precedente
