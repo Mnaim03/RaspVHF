@@ -1,9 +1,8 @@
 
 #include <LiquidCrystal.h>
 
-int frequence = 157;
+int frequence = 157; //frequnza di lettura
 int input = -1; // valore dato dal raspberry attraverso python
-int flag_firstRun = false; //verifica se effittivamente è il primo avvio del raspberry
 
 const int buzz = 4;
 const int red = 2, green = 3;
@@ -97,30 +96,41 @@ void loop() {
   Serial.begin(9600);
 
   // Primo avvio: mostra "Attendere" finché non c'è input
-  while (!Serial.available() && flag_firstRun == false) {
+  while (!Serial.available()) {
     printWait();
     delay(500); // evito di stamparlo troppe volte
   }
 
-  int lav;
-  do {
 
-    frequence = Serial.parseInt(); //leggo frequenza
-    lav = Serial.parseInt(); // legge il numero segnale
-    // svuota eventuali caratteri extra (come \n o spazi)
-    while (Serial.available()) Serial.read();
+  // Loop principale
+  while (true) {
+    int lav;
 
-  } while (lav == input || lav == 0 && !flag_firstRun); // evita di ripetere se è lo stesso
+    // Leggo valori da seriale (frequenza + input)
+    if (Serial.available()) {
+      frequence = Serial.parseInt();
+      lav = Serial.parseInt();
+      while (Serial.available()) Serial.read(); // pulizia
 
-  input = lav;
+      // Ignora valori uguali al precedente
+      if (lav == input || (lav == 0 && !flag_firstRun)) {
+        continue; //torno all'inzio del while
+      }
 
-  if (input == 1) {
-    fxCalm();
-  } else if (input == 2) {
-    fxAlert();
-  } else if (input == 3) {
-    done();
+      //se falori diversi allora
+      input = lav;
+      printFrequenza();
+
+      // Gestione segnali
+      if (input == 1) {
+        fxCalm();
+      } else if (input == 2) {
+        fxAlert();
+      } else if (input == 3) {
+        done();
+      }
+    }
+
+    delay(200); // per evitare loop troppo veloci
   }
-
-  flag_firstRun = true;
 }
