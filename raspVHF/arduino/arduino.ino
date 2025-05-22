@@ -113,7 +113,7 @@ void loop() {
       while (Serial.available()) Serial.read(); // pulizia
 
       // Ignora valori uguali al precedente
-      if (lav == input || (lav == 0 && !flag_firstRun)) {
+      if (lav == input || lav == 0 ) {
         continue; //torno all'inzio del while
       }
 
