@@ -86,33 +86,47 @@ void buzzOn(){
 
 
 void loop() {
-    Serial.begin(9600); //connessione seriale alla porta
+  Serial.begin(9600);
 
-    //Attendo il valore seriale al primo avvio
-    while(!Serial.available() && flag_firstRun==false){
-        printWait();
+  // Primo avvio: mostra "Attendere" finché non c'è input
+  while (!Serial.available() && flag_firstRun == false) {
+    printWait();
+    delay(500); // evito di stamparlo troppe volte
+  }
+
+  int lav;
+  do {
+
+    lav = Serial.parseInt(); // legge il numero
+    // svuota eventuali caratteri extra (come \n o spazi)
+    while (Serial.available()) Serial.read();
+
+  } while (lav == input || lav == 0 && !flag_firstRun); // evita di ripetere se è lo stesso
+
+  input = lav;
+
+  printFrequenza();
+
+  if (input == 1) {
+    fxCalm();
+  } else if (input == 2) {
+    fxAlert();
+  } else if (input == 3) {
+    done();
+  }
+
+  flag_firstRun = true;
+
+  // ATTENDI UN NUOVO VALORE DIVERSO
+  while (true) {
+    if (Serial.available()) {
+      int next = Serial.parseInt();
+      while (Serial.available()) Serial.read(); // pulizia
+      if (next != input) {
+        input = next;
+        break;
+      }
     }
-
-    int lav;
-    do{
-        lav = Serial.parseInt(); // lettoura porta seriale
-    }while(lav==input);
-
-    input=lav;
-    //INSERIRE LETTURA FREQUENZA
-
-    printFrequenza();
-
-    if(input==1){
-        fxAlert();
-    }else if(input==0){
-        fxCalm();
-    } else if(input==2){
-        done();
-    }
-
-    //Lascio Schermata fissa finchè non mi ritrovo un'altro valore in ingresso
-    while(!Serial.available()){}
-
-    flag_firstRun = true;
+    delay(200); // evita di sovraccaricare il microcontrollore
+  }
 }

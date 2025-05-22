@@ -12,7 +12,7 @@ time.sleep(2)  # Attendi che la connessione si stabilisca
 # Invia valori 0 e 1 in modo ciclico con attesa
 try:
     while True: #ciclo infinito
-        for flag in [0, 1]:
+        for flag in [1, 2]:
 
             #stampa seriale
             arduino.write(f"{flag}\n".encode())
@@ -22,7 +22,7 @@ try:
 except KeyboardInterrupt: #chiusura da tastiera
 
     print("Interrotto dall'utente")
-    arduino.write(f"{2}\n".encode()) #printo fine esecuzione
+    arduino.write(f"{3}\n".encode()) #printo fine esecuzione
 
 finally:
     arduino.close()
