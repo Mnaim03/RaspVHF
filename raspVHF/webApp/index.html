@@ -8,11 +8,12 @@
   </style>
   <script>
     function aggiornaDati() {
-      fetch("getData.php")
+      fetch("frequenza.php")
         .then(res => res.json())
         .then(dati => {
-          document.getElementById("valore").textContent = dati.frequence_num.toString() + " " + dati.freuqnece_hz.toString();
-          document.getElementById("anomalia").textContent = dati.anomalia === "true" ? "Anomalia Rilevata" : "Tutto OK";
+          console.log(dati);  // <--- controlla qui nel browser (F12 → Console)
+          document.getElementById("valore").textContent = dati.frequence_num + " " + dati.frequence_hz;
+          document.getElementById("anomalia").textContent = dati.anomalia === "true" ? "⚠️ Anomalia Rilevata" : "✅ Tutto OK";
         });
     }
 
