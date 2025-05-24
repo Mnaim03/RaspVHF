@@ -5,6 +5,8 @@
   <style>
     body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
     .box { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    
+    input[type="submit"] { padding: 10px 20px; margin-top: 10px; }
   </style>
   <script>
     function aggiornaDati() {
@@ -27,6 +29,17 @@
     <p><strong>Valore:</strong> <span id="valore">--</span></p>
     <p><strong>Stato:</strong> <span id="anomalia">--</span></p>
   </div>
+
+<form method="POST" action="setData.php">
+  <h3>Modifica Frequenza Output</h3>
+  <label>Valore numerico:</label>
+  <input type="number" name="frequence_num" required>
+
+  <label>Unità (es. MHz):</label>
+  <input type="text" name="freuqnece_hz" required>
+
+  <input type="submit" value="Aggiorna File">
+</form>
 </body>
 </html>
 
