@@ -11,4 +11,4 @@ chmod +x arduino/arduino.ino
 
 #avvio file python
 python3 CompileArduino.py
-python3 loopSimulator.py
+sudo python3 loopSimulator.py #sudo perchè va a scrivere nei file di apache
