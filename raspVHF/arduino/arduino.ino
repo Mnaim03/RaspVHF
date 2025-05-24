@@ -37,7 +37,7 @@ void printFrequenza(){
   lcd.print("f = ");
   lcd.print(frequence);
   lcd.print(" ");
-  lcd.print(String(hz);
+  lcd.print(String(hz));
 }
 
 void fxAlert(){
