@@ -24,8 +24,8 @@ try:
 
             #Stampo sul sito web i dati necessari
             #attulmente stampa ciò che ha ottenito sul sito stesso :-)
-            set_frequenza_num({get_frequence_num()})
-            set_frequenza_hz({get_frequence_hz()})
+            set_frequenza_num(get_frequence_num())
+            set_frequenza_hz(get_frequence_hz())
             if flag == 1:
                 set_anomalia(False)
             else:
