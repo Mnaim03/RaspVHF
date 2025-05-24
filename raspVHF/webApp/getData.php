@@ -1,5 +1,9 @@
 <?php
+header('Content-Type: application/json');
+
 $contenuto = file_get_contents("outputData.txt");
+echo json_encode(["DEBUG_RAW" => $contenuto]);
+
 $righe = explode("\n", $contenuto);
 $dati = [];
 
