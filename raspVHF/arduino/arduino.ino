@@ -2,7 +2,7 @@
 #include <LiquidCrystal.h>
 
 int frequence = 157; //frequnza di lettura
-String hz;
+String hz; // misura di hz
 int input = -1; // valore dato dal raspberry attraverso python
 
 const int buzz = 4;
@@ -11,8 +11,7 @@ const int rs = 8, en = 9, d4 = 10, d5 = 11, d6 = 12, d7 = 13;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 void setup() {  
-  lcd.begin(16, 2);  
-  lcd.print("hello, world!");
+  lcd.begin(16, 2);
 
   pinMode(buzz, OUTPUT);
   pinMode(red, OUTPUT);
@@ -38,7 +37,7 @@ void printFrequenza(){
   lcd.print("f = ");
   lcd.print(frequence);
   lcd.print(" ");
-  lcd.print(hz);
+  lcd.print(String(hz);
 }
 
 void fxAlert(){
