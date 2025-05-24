@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+
 <head>
   <title>Dati Frequenza</title>
   <style>
@@ -8,12 +8,12 @@
   </style>
   <script>
     function aggiornaDati() {
-      fetch("frequenza.php")
+      fetch("outputData.php")
         .then(res => res.json())
         .then(dati => {
           console.log(dati);  // <--- controlla qui nel browser (F12 → Console)
           document.getElementById("valore").textContent = dati.frequence_num + " " + dati.frequence_hz;
-          document.getElementById("anomalia").textContent = dati.anomalia === "true" ? "⚠️ Anomalia Rilevata" : "✅ Tutto OK";
+          document.getElementById("anomalia").textContent = dati.anomalia === "true" ? "Anomalia Rilevata" : "No Anomalie";
         });
     }
 
