@@ -39,7 +39,9 @@ except KeyboardInterrupt: #chiusura da tastiera
     print("Interrotto dall'utente")
 
     time.sleep(3)
-    
+    #attesa perchè potrebbe verificarsi che mentre mando
+    # input=3 sulla porta seriale ci stia ancora alto
+
     # stampa seriale
     # 3 -> Fine Ricezione
     arduino.write(f"{3}\n".encode()) #printo fine esecuzione
