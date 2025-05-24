@@ -1,5 +1,6 @@
 import serial
 import time
+from handelOutput import set_frequenza_num, set_frequenza_hz, set_anomalia
 
 serial_port = "/dev/ttyACM0"
 
@@ -17,9 +18,16 @@ try:
             # 1 -> No Anomalia
             # 2 -> Anomalia
             arduino.write(f"{flag}\n".encode())
-
             #stampa seriale
             arduino.write(f"152\n".encode())
+
+            #Stampo sul sito web i dati necessari
+            set_frequenza_num(152)
+            set_frequenza_hz("MHz")
+            if flag == 1:
+                set_anomalia(False)
+            else:
+                set_anomalia(True)
 
             print(f"Inviato: {flag}")
 
