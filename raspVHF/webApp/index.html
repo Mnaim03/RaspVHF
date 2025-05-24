@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dati Frequenza</title>
+  <style>
+    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+    .box { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  </style>
+  <script>
+    function aggiornaDati() {
+      fetch("getData.php")
+        .then(res => res.json())
+        .then(dati => {
+          document.getElementById("valore").textContent = dati.frequence_num + " " + dati.freuqnece_hz;
+          document.getElementById("anomalia").textContent = dati.anomalia === "true" ? "⚠️ Anomalia Rilevata" : "✅ Tutto OK";
+        });
+    }
+
+    setInterval(aggiornaDati, 1000);
+    window.onload = aggiornaDati;
+  </script>
+</head>
+<body>
+  <div class="box">
+    <h2>Frequenza Attuale</h2>
+    <p><strong>Valore:</strong> <span id="valore">--</span></p>
+    <p><strong>Stato:</strong> <span id="anomalia">--</span></p>
+  </div>
+</body>
+</html>
