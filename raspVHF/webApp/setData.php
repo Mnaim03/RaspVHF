@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<p>✅ File aggiornato con successo!</p>";
     echo "<pre>$contenuto</pre>";
-    echo '<a href="index.php">Torna alla pagina principale</a>';
+    echo '<a href="index.html">Torna alla pagina principale</a>';
 } else {
-    header("Location: index.php");
+    header("Location: index.html");
     exit;
 }
 ?>

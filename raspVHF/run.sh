@@ -10,7 +10,8 @@ chmod +x loopSimulator.py
 chmod +x arduino/arduino.ino
 
 sudo chmod 666 /var/www/html/outputData
+sudo chmod 666 /var/www/html/inputData
 
 #avvio file python
-# python3 CompileArduino.py
+python3 CompileArduino.py
 sudo python3 loopSimulator.py #sudo perchè va a scrivere nei file di apache

@@ -2,6 +2,7 @@
 #include <LiquidCrystal.h>
 
 int frequence = 157; //frequnza di lettura
+String hz;
 int input = -1; // valore dato dal raspberry attraverso python
 
 const int buzz = 4;
@@ -36,7 +37,8 @@ void printFrequenza(){
   lcd.setCursor(0, 0);
   lcd.print("f = ");
   lcd.print(frequence);
-  lcd.print(" Hz");
+  lcd.print(" ");
+  lcd.print(hz);
 }
 
 void fxAlert(){
@@ -111,6 +113,8 @@ void loop() {
 
       lav = Serial.parseInt();
       frequence = Serial.parseInt();
+      hz = Serial.readString();
+
       while (Serial.available()) Serial.read(); // pulizia
 
       // Ignora valori uguali al precedente
