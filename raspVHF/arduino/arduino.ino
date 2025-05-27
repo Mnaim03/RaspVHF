@@ -1,7 +1,7 @@
 
 #include <LiquidCrystal.h>
 
-int frequence = 157; //frequnza di lettura
+int frequence; //frequnza di lettura
 String hz; // misura di hz
 int input = -1; // valore dato dal raspberry attraverso python
 
