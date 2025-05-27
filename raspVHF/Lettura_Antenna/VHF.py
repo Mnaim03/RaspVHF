@@ -59,9 +59,19 @@ def rileva_segnale_attivo(samples, sdr):
     return False
 
 
-try:
-    print(f"In ascolto su {sdr.center_freq / 1e6:.2f} MHz per segnali attivi...\n"
-          f"Premi Ctrl+C per uscire.\n")
-    while True:
-        samples = sdr.read_samples(256 * 1024)
-        rileva_segnale_attivo(samples, sdr)
+def main():
+    try:
+        print(f"In ascolto su {sdr.center_freq / 1e6:.2f} MHz per segnali attivi...\n"
+              f"Premi Ctrl+C per uscire.\n")
+        while True:
+            samples = sdr.read_samples(256 * 1024)
+            rileva_segnale_attivo(samples, sdr)
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        print("\nInterrotto manualmente.")
+    finally:
+        sdr.close()
+
+
+if __name__ == "__main__":
+    main()
