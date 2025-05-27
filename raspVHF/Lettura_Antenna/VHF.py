@@ -7,8 +7,8 @@ sdr = RtlSdr()
 
 # Configura parametri
 sdr.sample_rate = 2.4e6      # in Hz
-sdr.center_freq = 144.39e6   # frequenza VHF in Hz (es: APRS)
-sdr.gain = 'auto'
+sdr.center_freq = 120.39e6   # frequenza VHF in Hz (es: APRS)
+sdr.gain = 30  # Valori validi: 0–49.6 dB a passi discreti
 
 # Legge 256k campioni
 samples = sdr.read_samples(256*1024)
