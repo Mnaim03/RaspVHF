@@ -26,6 +26,11 @@ noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 detection_count = 0
 last_detection_time = 0
 
+import os
+
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def stampa_ascii_spectrum(freqs, power, threshold):
     """Stampa una rappresentazione ASCII dello spettro attorno al centro."""
@@ -103,6 +108,7 @@ def rileva_segnale(samples):
         detection_count = 0
 
     # Output per debug (aggiorna in linea)
+    clear_terminal()
     print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB", end='\r')
     stampa_ascii_spectrum(freqs, power, threshold)
     return False
