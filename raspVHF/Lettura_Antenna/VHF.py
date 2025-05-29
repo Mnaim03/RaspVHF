@@ -33,23 +33,21 @@ def clear_terminal():
 
 
 def stampa_ascii_spectrum(freqs, power, threshold):
-    """Stampa una rappresentazione ASCII dello spettro attorno al centro."""
-    # Riduci dimensione per il terminale
+    """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
+    # Riduci a 80 punti per il terminale
     step = len(power) // 80
     reduced_power = power[::step][:80]
 
-    # 📌 Limita range visivo utile (es: tra -90 e -30 dB)
-    display_min = max(np.min(reduced_power), -90)
-    display_max = min(np.max(reduced_power), -30)
+    # 🔧 Centra il grafico sulla soglia (es: da soglia-15 a soglia+5)
+    display_min = threshold - 15
+    display_max = threshold + 5
+    scale = 25  # più righe = grafico più dettagliato
 
-    # 📏 Altezza del grafico
-    scale = 30
-
-    print("\nSpettro semplificato (ASCII):")
+    print("\nSpettro (ASCII):")
     for level in reversed(np.linspace(display_min, display_max, scale)):
         line = ""
         for val in reduced_power:
-            if val > level:
+            if val >= level:
                 line += "█"
             elif abs(val - threshold) < 0.5:
                 line += "-"
