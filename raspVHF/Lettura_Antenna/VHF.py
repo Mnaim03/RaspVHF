@@ -37,14 +37,16 @@ def stampa_ascii_spectrum(freqs, power, threshold):
     # Riduci dimensione per il terminale
     step = len(power) // 80
     reduced_power = power[::step][:80]
-    reduced_freqs = freqs[::step][:80]
 
-    max_db = max(reduced_power)
-    min_db = min(reduced_power)
-    scale = 20  # altezza del grafico in righe
+    # 📌 Limita range visivo utile (es: tra -90 e -30 dB)
+    display_min = max(np.min(reduced_power), -90)
+    display_max = min(np.max(reduced_power), -30)
+
+    # 📏 Altezza del grafico
+    scale = 30
 
     print("\nSpettro semplificato (ASCII):")
-    for level in reversed(np.linspace(min_db, max_db, scale)):
+    for level in reversed(np.linspace(display_min, display_max, scale)):
         line = ""
         for val in reduced_power:
             if val > level:
@@ -56,6 +58,7 @@ def stampa_ascii_spectrum(freqs, power, threshold):
         print(f"{level:6.1f} | {line}")
     print("       +" + "-"*80)
     print("       |" + " " * 35 + "Frequenza →")
+
 
 
 def rileva_segnale(samples):
