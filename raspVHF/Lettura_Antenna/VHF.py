@@ -103,6 +103,7 @@ def rileva_segnale(samples):
                       f"BW: {bandwidth/1e3:.1f} kHz | Potenza: {max_power:.1f} dB | "
                       f"Soglia: {threshold:.1f} dB | Rumore medio: {noise_floor_avg:.1f} dB")
                 detection_count = 0
+                stampa_ascii_spectrum(freqs, power, threshold)
                 return True
 
     else:
