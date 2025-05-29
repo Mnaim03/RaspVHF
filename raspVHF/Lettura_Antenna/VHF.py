@@ -3,10 +3,6 @@ import numpy as np
 import time
 from collections import deque
 
-global power
-global freqs
-global threshold
-
 # Configurazione SDR
 sdr = RtlSdr()
 sdr.sample_rate = 2.4e6
@@ -29,6 +25,33 @@ noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 # Variabili stato
 detection_count = 0
 last_detection_time = 0
+
+
+def stampa_ascii_spectrum(freqs, power, threshold):
+    """Stampa una rappresentazione ASCII dello spettro attorno al centro."""
+    # Riduci dimensione per il terminale
+    step = len(power) // 80
+    reduced_power = power[::step][:80]
+    reduced_freqs = freqs[::step][:80]
+
+    max_db = max(reduced_power)
+    min_db = min(reduced_power)
+    scale = 20  # altezza del grafico in righe
+
+    print("\nSpettro semplificato (ASCII):")
+    for level in reversed(np.linspace(min_db, max_db, scale)):
+        line = ""
+        for val in reduced_power:
+            if val > level:
+                line += "█"
+            elif abs(val - threshold) < 0.5:
+                line += "-"
+            else:
+                line += " "
+        print(f"{level:6.1f} | {line}")
+    print("       +" + "-"*80)
+    print("       |" + " " * 35 + "Frequenza →")
+
 
 def rileva_segnale(samples):
     global detection_count, last_detection_time
@@ -81,39 +104,15 @@ def rileva_segnale(samples):
 
     # Output per debug (aggiorna in linea)
     print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB", end='\r')
+    stampa_ascii_spectrum(freqs, power, threshold)
     return False
 
-def stampa_ascii_spectrum(freqs, power, threshold):
-    """Stampa una rappresentazione ASCII dello spettro attorno al centro."""
-    # Riduci dimensione per il terminale
-    step = len(power) // 80
-    reduced_power = power[::step][:80]
-    reduced_freqs = freqs[::step][:80]
-
-    max_db = max(reduced_power)
-    min_db = min(reduced_power)
-    scale = 20  # altezza del grafico in righe
-
-    print("\nSpettro semplificato (ASCII):")
-    for level in reversed(np.linspace(min_db, max_db, scale)):
-        line = ""
-        for val in reduced_power:
-            if val > level:
-                line += "█"
-            elif abs(val - threshold) < 0.5:
-                line += "-"
-            else:
-                line += " "
-        print(f"{level:6.1f} | {line}")
-    print("       +" + "-"*80)
-    print("       |" + " " * 35 + "Frequenza →")
 
 def main():
     try:
         print(f"\nMonitoraggio VHF su {sdr.center_freq/1e6:.3f} MHz")
         print(f"Soglia margine: {THRESHOLD_MARGIN_DB} dB | BW: {MIN_BANDWIDTH_HZ/1e3}-{MAX_BANDWIDTH_HZ/1e3} kHz\n")
         # Stampa spettro nel terminale (ASCII)
-        stampa_ascii_spectrum(freqs, power, threshold)
 
         while True:
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
