@@ -7,29 +7,11 @@ import os
 
 # Aggiungi la directory superiore al path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from handler import get_frequence_num, get_frequence_hz
+from handler import get_frequence_num, get_frequence_hz, unit_to_multiplier
 
-def unit_to_multiplier(unit):
-    unit = unit.lower()
-    return {
-        "hz": 1,
-        "khz": 1_000,
-        "mhz": 1_000_000,
-        "ghz": 1_000_000_000
-    }.get(unit, 1)  # default = 1 Hz
-
-# Ottieni input
-input_freq = get_frequence_num()
-input_unit = get_frequence_hz()
-
-# Calcolo finale
-input_hz = unit_to_multiplier(input_unit)
 
 # Configurazione SDR
 sdr = RtlSdr()
-sdr.sample_rate = 2.4e6
-sdr.center_freq = int(input_freq * input_hz)
-
 sdr.gain = 'auto'
 
 # Parametri
@@ -50,6 +32,18 @@ detection_count = 0
 last_detection_time = 0
 
 import os
+
+def set_freuqneza_sdr():
+    sdr.sample_rate = 2.4e6
+
+    # Ottieni input
+    input_freq = get_frequence_num()
+    input_unit = get_frequence_hz()
+
+    # Calcolo finale
+    input_hz = unit_to_multiplier(input_unit)
+    sdr.center_freq = int(input_freq * input_hz)
+
 
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -79,7 +73,6 @@ def stampa_ascii_spectrum(freqs, power, threshold):
         print(f"{level:6.1f} | {line}")
     print("       +" + "-"*80)
     print("       |" + " " * 35 + "Frequenza →")
-
 
 
 def rileva_segnale(samples):
@@ -141,6 +134,8 @@ def rileva_segnale(samples):
 
 def main():
     try:
+        set_freuqneza_sdr()
+
         print(f"\nMonitoraggio VHF su {sdr.center_freq/1e6:.3f} MHz")
         print(f"Soglia margine: {THRESHOLD_MARGIN_DB} dB | BW: {MIN_BANDWIDTH_HZ/1e3}-{MAX_BANDWIDTH_HZ/1e3} kHz\n")
         # Stampa spettro nel terminale (ASCII)

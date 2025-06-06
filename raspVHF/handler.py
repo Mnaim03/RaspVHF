@@ -21,7 +21,6 @@ def modifica_valore(chiave, nuovo_valore):
     with open(percorso_scrittura, "w") as f:
         f.writelines(righe_modificate)
 
-
 def set_frequenza_num(nuovo_numero):
     modifica_valore("frequence_num", nuovo_numero)
 
@@ -51,3 +50,12 @@ def get_frequence_hz():
     except Exception as e:
         print(f"Errore nella lettura di frequence_hz: {e}")
     return None
+
+def unit_to_multiplier(unit):
+    unit = unit.lower()
+    return {
+        "hz": 1,
+        "khz": 1_000,
+        "mhz": 1_000_000,
+        "ghz": 1_000_000_000
+    }.get(unit, 1)  # default = 1 Hz
