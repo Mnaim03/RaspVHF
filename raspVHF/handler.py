@@ -1,3 +1,5 @@
+import os
+
 percorso_scrittura="/var/www/html/outputData"
 percorso_lettura="/var/www/html/inputData"
 
