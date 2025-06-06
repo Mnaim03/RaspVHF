@@ -2,6 +2,11 @@ from rtlsdr import RtlSdr
 import numpy as np
 import time
 from collections import deque
+import sys
+import os
+
+# Aggiungi la directory superiore al path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from handler import get_frequence_num, get_frequence_hz
 
 def unit_to_multiplier(unit):
