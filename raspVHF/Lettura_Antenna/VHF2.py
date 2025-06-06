@@ -31,8 +31,6 @@ noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 detection_count = 0
 last_detection_time = 0
 
-import os
-
 def set_freuqneza_sdr():
     sdr.sample_rate = 2.4e6
 
