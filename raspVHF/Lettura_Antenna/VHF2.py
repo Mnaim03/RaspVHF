@@ -2,7 +2,7 @@ from rtlsdr import RtlSdr
 import numpy as np
 import time
 from collections import deque
-from ../handler import get_frequence_num, get_frequence_hz
+from ./handler import get_frequence_num, get_frequence_hz
 
 def unit_to_multiplier(unit):
     unit = unit.lower()
