@@ -127,7 +127,7 @@ def rileva_segnale(samples):
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
-    print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB", end='\r')
+    print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {sdr.center_freq}", end='\r')
     stampa_ascii_spectrum(freqs, power, threshold)
     return False
 
