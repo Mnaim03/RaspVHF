@@ -134,13 +134,13 @@ def rileva_segnale(samples):
 
 def main():
     try:
-        set_freuqneza_sdr()
 
         print(f"\nMonitoraggio VHF su {sdr.center_freq/1e6:.3f} MHz")
         print(f"Soglia margine: {THRESHOLD_MARGIN_DB} dB | BW: {MIN_BANDWIDTH_HZ/1e3}-{MAX_BANDWIDTH_HZ/1e3} kHz\n")
         # Stampa spettro nel terminale (ASCII)
 
         while True:
+            set_freuqneza_sdr()
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
             time.sleep(0.2)
