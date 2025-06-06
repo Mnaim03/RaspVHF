@@ -1,6 +1,9 @@
 percorso_scrittura="/var/www/html/outputData"
 percorso_lettura="/var/www/html/inputData"
 
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def modifica_valore(chiave, nuovo_valore):
     righe_modificate = []
     trovato = False

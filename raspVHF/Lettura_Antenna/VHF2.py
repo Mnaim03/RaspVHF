@@ -7,7 +7,7 @@ import os
 
 # Aggiungi la directory superiore al path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from handler import get_frequence_num, get_frequence_hz, unit_to_multiplier
+from handler import get_frequence_num, get_frequence_hz, unit_to_multiplier, clear_terminal
 
 
 # Configurazione SDR
@@ -43,11 +43,6 @@ def set_freuqneza_sdr():
     # Calcolo finale
     input_hz = unit_to_multiplier(input_unit)
     sdr.center_freq = int(input_freq * input_hz)
-
-
-def clear_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
 
 def stampa_ascii_spectrum(freqs, power, threshold):
     """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
