@@ -2,11 +2,16 @@ from rtlsdr import RtlSdr
 import numpy as np
 import time
 from collections import deque
+import sys
+import os
+
+# Aggiungi la directory superiore al path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from handler import get_frequence_num, get_frequence_hz, unit_to_multiplier, clear_terminal
+
 
 # Configurazione SDR
 sdr = RtlSdr()
-sdr.sample_rate = 2.4e6
-sdr.center_freq = 144.39e6
 sdr.gain = 'auto'
 
 # Parametri
@@ -26,11 +31,16 @@ noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 detection_count = 0
 last_detection_time = 0
 
-import os
+def set_freuqneza_sdr():
+    sdr.sample_rate = 2.4e6
 
-def clear_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    # Ottieni input
+    input_freq = get_frequence_num()
+    input_unit = get_frequence_hz()
 
+    # Calcolo finale
+    input_hz = unit_to_multiplier(input_unit)
+    sdr.center_freq = int(input_freq * input_hz)
 
 def stampa_ascii_spectrum(freqs, power, threshold):
     """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
@@ -56,7 +66,6 @@ def stampa_ascii_spectrum(freqs, power, threshold):
         print(f"{level:6.1f} | {line}")
     print("       +" + "-"*80)
     print("       |" + " " * 35 + "Frequenza →")
-
 
 
 def rileva_segnale(samples):
@@ -111,18 +120,20 @@ def rileva_segnale(samples):
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
-    print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB", end='\r')
+    print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()}", end='\r')
     stampa_ascii_spectrum(freqs, power, threshold)
     return False
 
 
 def main():
     try:
+
         print(f"\nMonitoraggio VHF su {sdr.center_freq/1e6:.3f} MHz")
         print(f"Soglia margine: {THRESHOLD_MARGIN_DB} dB | BW: {MIN_BANDWIDTH_HZ/1e3}-{MAX_BANDWIDTH_HZ/1e3} kHz\n")
         # Stampa spettro nel terminale (ASCII)
 
         while True:
+            set_freuqneza_sdr()
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
             time.sleep(0.2)
