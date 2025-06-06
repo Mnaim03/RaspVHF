@@ -24,11 +24,11 @@ input_unit = get_frequence_hz()
 
 # Calcolo finale
 input_hz = unit_to_multiplier(input_unit)
-sdr.center_freq = int(input_freq * input_hz)
 
 # Configurazione SDR
 sdr = RtlSdr()
 sdr.sample_rate = 2.4e6
+sdr.center_freq = int(input_freq * input_hz)
 
 sdr.gain = 'auto'
 
