@@ -1,4 +1,3 @@
-import int
 from mainHandler import get_frequence_num, get_frequence_hz, clear_terminal
 
 
