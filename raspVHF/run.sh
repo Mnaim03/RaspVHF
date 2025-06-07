@@ -20,3 +20,5 @@ source venv/bin/activate
 #avvio file python
 # python3 CompileArduino.py
 sudo python3 mainVHF.py #sudo perchè va a scrivere nei file di apache
+
+deactivate
