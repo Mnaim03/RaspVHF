@@ -1,6 +1,5 @@
 import os
 import time
-import int
 import serial
 
 percorso_scrittura="/var/www/html/outputData"
