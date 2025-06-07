@@ -66,9 +66,9 @@ def get_anomalia():
         with open(percorso_scrittura, "r") as f:
             for riga in f:
                 if riga.startswith("anomalia"):
-                    return int(riga.strip().split("=")[1].strip())
+                    return riga.strip().split("=")[1].strip()
     except Exception as e:
-        print(f"Errore nella lettura di frequence_num: {e}")
+        print(f"Errore nella lettura di get_anomala: {e}")
     return None
 
 
