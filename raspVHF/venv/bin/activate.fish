@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/user1/Documents/RaspVHF/raspVHF/Lettura_Antenna/venv
+set -gx VIRTUAL_ENV /home/user1/Documents/RaspVHF/raspVHF/venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH
