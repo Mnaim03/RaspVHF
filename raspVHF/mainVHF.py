@@ -29,7 +29,7 @@ detection_count = 0
 last_detection_time = 0
 
 #Arduino
-Arduino = get_Arduino();
+Arduino = start_Arduino();
 serial_port = "/dev/ttyACM0"
 
 
