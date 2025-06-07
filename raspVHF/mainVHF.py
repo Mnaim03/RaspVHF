@@ -6,7 +6,6 @@ import serial
 import sys
 import os
 
-from loopSimulator import arduino
 from mainHandler import *
 from paramHandler import *
 

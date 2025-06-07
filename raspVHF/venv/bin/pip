@@ -1,4 +1,4 @@
-#!/home/user1/Documents/RaspVHF/raspVHF/Lettura_Antenna/venv/bin/python3
+#!/home/user1/Documents/RaspVHF/raspVHF/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
