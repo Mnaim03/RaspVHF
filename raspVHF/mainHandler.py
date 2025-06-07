@@ -84,7 +84,7 @@ def start_Arduino():
 def update_arduino(arduino):
     # 1 -> No Anomalia
     # 2 -> Anomalia
-    if get_frequence_num() == True : flag = 2
+    if get_anomalia() == True : flag = 2
     else: flag = 1
 
     arduino.write(f"{flag}\n".encode())
