@@ -13,8 +13,8 @@ chmod +x arduino/arduino.ino
 sudo chmod 666 /var/www/html/outputData
 sudo chmod 666 /var/www/html/inputData
 
-
-python3 -m venv venv
+# L’opzione -I (isolated mode) forza Python a ignorare variabili di ambiente che potrebbero stare causando il problema.
+python3 -I -m venv venv
 source venv/bin/activate
 
 #avvio file python
