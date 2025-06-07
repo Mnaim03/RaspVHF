@@ -1,4 +1,7 @@
 import os
+import time
+import int
+import serial
 
 percorso_scrittura="/var/www/html/outputData"
 percorso_lettura="/var/www/html/inputData"
@@ -25,6 +28,9 @@ def modifica_valore(chiave, nuovo_valore):
 
     with open(percorso_scrittura, "w") as f:
         f.writelines(righe_modificate)
+
+
+# GESTIONE FILE CONDIVISI
 
 def set_frequenza_num(nuovo_numero):
     modifica_valore("frequence_num", nuovo_numero)
@@ -56,11 +62,42 @@ def get_frequence_hz():
         print(f"Errore nella lettura di frequence_hz: {e}")
     return None
 
-def unit_to_multiplier(unit):
-    unit = unit.lower()
-    return {
-        "hz": 1,
-        "khz": 1_000,
-        "mhz": 1_000_000,
-        "ghz": 1_000_000_000
-    }.get(unit, 1)  # default = 1 Hz
+def get_anomalia():
+    try:
+        with open(percorso_scrittura, "r") as f:
+            for riga in f:
+                if riga.startswith("anomalia"):
+                    return int(riga.strip().split("=")[1].strip())
+    except Exception as e:
+        print(f"Errore nella lettura di frequence_num: {e}")
+    return None
+
+
+# GESTIONE ARDUINO
+
+def start_Arduino():
+    serial_port = "/dev/ttyACM0"
+    # Configura la connessione seriale
+    Arduino = serial.Serial(serial_port, 9600)
+    time.sleep(2)  # Attendi che la connessione si stabilisca
+    return Arduino
+
+def update_arduino(arduino):
+    # 1 -> No Anomalia
+    # 2 -> Anomalia
+    if get_frequence_num() == True : flag = 2
+    else: flag = 1
+
+    arduino.write(f"{flag}\n".encode())
+    # stampa seriale
+    arduino.write(f"{get_frequence_num()}\n".encode())
+    arduino.write(f"{get_frequence_hz()}\n".encode())
+
+def end_Arduino(arduino):
+    time.sleep(3)
+    # attesa perchè potrebbe verificarsi che mentre mando
+    # input=3 sulla porta seriale ci stia ancora alto
+
+    # stampa seriale
+    # 3 -> Fine Ricezione
+    arduino.write(f"{3}\n".encode())  # printo fine esecuzione

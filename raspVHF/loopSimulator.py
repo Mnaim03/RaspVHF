@@ -1,6 +1,6 @@
 import serial
 import time
-from handler import set_frequenza_num, set_frequenza_hz, set_anomalia, get_frequence_num, get_frequence_hz
+from mainHandler import update_raspberry, arduino_end
 
 serial_port = "/dev/ttyACM0"
 
@@ -15,21 +15,7 @@ try:
     while True: #ciclo infinito
         for flag in [1, 2]:
 
-            # 1 -> No Anomalia
-            # 2 -> Anomalia
-            arduino.write(f"{flag}\n".encode())
-            #stampa seriale
-            arduino.write(f"{get_frequence_num()}\n".encode())
-            arduino.write(f"{get_frequence_hz()}\n".encode())
-
-            #Stampo sul sito web i dati necessari
-            #attulmente stampa ciò che ha ottenito sul sito stesso :-)
-            set_frequenza_num(get_frequence_num())
-            set_frequenza_hz(get_frequence_hz())
-            if flag == 1:
-                set_anomalia(False)
-            else:
-                set_anomalia(True)
+            update_raspberry(arduino)
 
             print(f"Inviato: {flag}")
 
@@ -38,12 +24,6 @@ except KeyboardInterrupt: #chiusura da tastiera
 
     print("Interrotto dall'utente")
 
-    time.sleep(3)
-    #attesa perchè potrebbe verificarsi che mentre mando
-    # input=3 sulla porta seriale ci stia ancora alto
-
-    # stampa seriale
-    # 3 -> Fine Ricezione
-    arduino.write(f"{3}\n".encode()) #printo fine esecuzione
+    arduino_end()
 finally:
     arduino.close()

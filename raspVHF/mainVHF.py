@@ -2,27 +2,25 @@ from rtlsdr import RtlSdr
 import numpy as np
 import time
 from collections import deque
+import serial
 import sys
 import os
 
-# Aggiungi la directory superiore al path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from mainHandler import get_frequence_num, get_frequence_hz, unit_to_multiplier, clear_terminal
-
+from loopSimulator import arduino
+from mainHandler import *
+from paramHandler import *
 
 # Configurazione SDR
 sdr = RtlSdr()
-sdr.gain = 'auto'
 
 # Parametri
-THRESHOLD_MARGIN_DB = 10        # Margine sopra rumore stimato
-MIN_BANDWIDTH_HZ = 5000
-MAX_BANDWIDTH_HZ = 25000
-MIN_PEAK_CONFIRMATIONS = 3      # Quante rilevazioni consecutive per confermare
-COOLDOWN_PERIOD = 2             # Secondi tra allarmi
-
+THRESHOLD_MARGIN_DB = Parameters.THRESHOLD_MARGIN_DB
+MIN_BANDWIDTH_HZ = Parameters.MIN_BANDWIDTH_HZ
+MAX_BANDWIDTH_HZ = Parameters.MAX_BANDWIDTH_HZ
+MIN_PEAK_CONFIRMATIONS = Parameters.MIN_PEAK_CONFIRMATIONS
+COOLDOWN_PERIOD = Parameters.COOLDOWN_PERIOD
 # Per stimare rumore in modo stabile, uso una finestra temporale di medie
-NOISE_ESTIMATION_WINDOW = 20    # Numero di blocchi per stimare rumore
+NOISE_ESTIMATION_WINDOW = Parameters.NOISE_ESTIMATION_WINDOW
 
 # Code per memorizzare le medie di rumore degli ultimi blocchi
 noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
@@ -31,16 +29,10 @@ noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 detection_count = 0
 last_detection_time = 0
 
-def set_freuqneza_sdr():
-    sdr.sample_rate = 2.4e6
+#Arduino
+Arduino = get_Arduino();
+serial_port = "/dev/ttyACM0"
 
-    # Ottieni input
-    input_freq = get_frequence_num()
-    input_unit = get_frequence_hz()
-
-    # Calcolo finale
-    input_hz = unit_to_multiplier(input_unit)
-    sdr.center_freq = int(input_freq * input_hz)
 
 def stampa_ascii_spectrum(freqs, power, threshold):
     """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
@@ -107,16 +99,23 @@ def rileva_segnale(samples):
 
             # Conferma più rilevazioni consecutive e rispetto cooldown
             if detection_count >= MIN_PEAK_CONFIRMATIONS and (time.time() - last_detection_time) > COOLDOWN_PERIOD:
+
                 last_detection_time = time.time()
+
                 print(f"[⚠️ ATTIVITÀ RILEVATA] Frequenza: {peak_freq/1e6:.4f} MHz | "
                       f"BW: {bandwidth/1e3:.1f} kHz | Potenza: {max_power:.1f} dB | "
                       f"Soglia: {threshold:.1f} dB | Rumore medio: {noise_floor_avg:.1f} dB")
+
                 detection_count = 0
+                set_anomalia(True)
                 stampa_ascii_spectrum(freqs, power, threshold)
+
                 return True
 
     else:
         detection_count = 0
+        set_anomalia(False)
+
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
@@ -129,17 +128,20 @@ def main():
     try:
 
         while True:
-            set_freuqneza_sdr()
+            set_freuqneza_sdr(sdr)
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
+            update_arduino(Arduino)
             time.sleep(0.2)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
+        end_Arduino(Arduino)
 
     finally:
         sdr.close()
-        print("Dispositivo SDR rilasciato")
+        Arduino.close()
+        print("Dispositivo SDR e Arduino rilasciato")
 
 
 if __name__ == "__main__":
