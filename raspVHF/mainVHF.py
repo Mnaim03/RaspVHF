@@ -28,10 +28,6 @@ noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 detection_count = 0
 last_detection_time = 0
 
-# verifica cambiamento
-flag_change = 0
-old_anomalia = False
-
 #Arduino
 Arduino = start_Arduino();
 serial_port = "/dev/ttyACM0"
@@ -111,11 +107,6 @@ def rileva_segnale(samples):
 
                 detection_count = 0
                 set_anomalia(True)
-
-                if old_anomalia != True :
-                    flag_change = 1
-                    old_anomalia = True
-
                 stampa_ascii_spectrum(freqs, power, threshold)
 
                 return True
@@ -123,11 +114,6 @@ def rileva_segnale(samples):
     else:
         detection_count = 0
         set_anomalia(False)
-
-        if old_anomalia != False :
-            flag_change = 1
-            old_anomalia = False
-
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
@@ -145,12 +131,8 @@ def main():
             set_freuqneza_sdr(sdr)
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
-
-            if flag_change == 1:
-                update_arduino(Arduino)
-                flag_change = 0
-
-            time.sleep(0.5)
+            update_arduino(Arduino)
+            time.sleep(2)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
