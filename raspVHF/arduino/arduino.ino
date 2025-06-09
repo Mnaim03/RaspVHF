@@ -111,19 +111,12 @@ void loop() {
     // Leggo valori da seriale (frequenza + input)
     if (Serial.available()) {
 
-      lav = Serial.parseInt();
+      input = Serial.parseInt();
       frequence = Serial.parseInt();
       hz = Serial.readString();
 
-      // while (Serial.available()) Serial.read(); // pulizia
+      while (Serial.available()) Serial.read(); // pulizia
 
-      // Ignora valori uguali al precedente
-      if (lav == input || lav == 0 ) {
-        continue; //torno all'inzio del while
-      }
-
-      //se falori diversi allora
-      input = lav;
       printFrequenza();
 
       // Gestione segnali
