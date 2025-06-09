@@ -5,6 +5,7 @@ from collections import deque
 import serial
 import sys
 import os
+import threading
 
 from mainHandler import *
 from paramHandler import *
@@ -121,18 +122,24 @@ def rileva_segnale(samples):
     stampa_ascii_spectrum(freqs, power, threshold)
     return False
 
+def arduino_updater():
+    while True:
+        update_arduino(Arduino)
+        time.sleep(0.2)
+
 
 def main():
-    global flag_change
 
     try:
-
         while True:
+
+            updater_thread = threading.Thread(target=arduino_updater, daemon=True)
+            updater_thread.start()
+
             set_freuqneza_sdr(sdr)
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
-            update_arduino(Arduino)
-            time.sleep(2)
+            time.sleep(0.2)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
