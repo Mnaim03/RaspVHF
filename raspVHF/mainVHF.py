@@ -137,6 +137,8 @@ def rileva_segnale(samples):
 
 
 def main():
+    global flag_change
+
     try:
 
         while True:
