@@ -124,10 +124,11 @@ def main():
 
     try:
         while True:
+            update_arduino(Arduino)
+
             set_freuqneza_sdr(sdr)
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
-            update_arduino(Arduino)
             time.sleep(0.5)
 
     except KeyboardInterrupt:
