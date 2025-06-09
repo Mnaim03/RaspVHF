@@ -82,6 +82,7 @@ def start_Arduino():
     return Arduino
 
 def update_arduino(arduino):
+    time.sleep(2)
     # 1 -> No Anomalia
     # 2 -> Anomalia
     if get_anomalia() == 1 : flag = 2
