@@ -82,7 +82,6 @@ def start_Arduino():
     return Arduino
 
 def update_arduino(arduino):
-    time.sleep(2)
     # 1 -> No Anomalia
     # 2 -> Anomalia
     if get_anomalia() == 1 : flag = 2
@@ -92,6 +91,7 @@ def update_arduino(arduino):
     # stampa seriale
     arduino.write(f"{get_frequence_num()}\n".encode())
     arduino.write(f"{get_frequence_hz()}\n".encode())
+    arduino.flush()
 
 def end_Arduino(arduino):
     time.sleep(3)
