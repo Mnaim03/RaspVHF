@@ -129,12 +129,21 @@ def arduino_updater():
 
 
 def main():
+    global flag_change
+
+    # updater_thread = threading.Thread(target=arduino_updater, daemon=True)
+    # updater_thread.start()
+
+    thread_started = False
 
     try:
-        while True:
 
-            updater_thread = threading.Thread(target=arduino_updater, daemon=True)
-            updater_thread.start()
+        while True:
+            if not thread_started:
+                updater_thread = threading.Thread(target=arduino_updater, daemon=True)
+                thread_started = True
+                updater_thread.start()
+                thread_started = False
 
             set_freuqneza_sdr(sdr)
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
