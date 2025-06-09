@@ -2,10 +2,6 @@ from rtlsdr import RtlSdr
 import numpy as np
 import time
 from collections import deque
-import serial
-import sys
-import os
-import threading
 
 from mainHandler import *
 from paramHandler import *
