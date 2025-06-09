@@ -128,7 +128,7 @@ def main():
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
             update_arduino(Arduino)
-            time.sleep(0.2)
+            time.sleep(0.5)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
