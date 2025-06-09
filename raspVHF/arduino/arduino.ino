@@ -115,7 +115,7 @@ void loop() {
       frequence = Serial.parseInt();
       hz = Serial.readString();
 
-      while (Serial.available()) Serial.read(); // pulizia
+      // while (Serial.available()) Serial.read(); // pulizia
 
       // Ignora valori uguali al precedente
       if (lav == input || lav == 0 ) {
