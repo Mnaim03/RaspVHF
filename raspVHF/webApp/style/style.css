@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+
+:root{
+    --backgroundColor : #0d1117;
+    --backgroundColor2: #161b22 ;
+    --backgroundColor3: #21262d;
+    --greenText : #7ce38b;
+    --redText : #fa7970;
+    --whiteText : #ecf2f8;
+}
+
+body{
+    background-color: var(--backgroundColor);
+    color: var(--whiteText);
+
+    font-family: "Sometype Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+    width: 430px;
+    margin: auto;
+    overflow: hidden;
+
+    min-height: 100vh;
+}
+
+img{
+    height: 160px;
+    width: 160px;
+
+    margin-left: 33%;
+    margin-right: 33%;
+}
+
+.box{
+    background: var(--backgroundColor2);
+    padding: 20px;
+    border-radius: 22px;
+    max-width: 80%;
+
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.box h2{
+    color: var(--greenText);
+    align-items: center;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn-box{
+    margin-top: 69%;
+}
+
+.btn-box h3{
+    font-size: 13px;
+    margin-top: 20px;
+    text-align: center;
+    opacity: 0.6;
+}
+
+.button {
+    background-color: var(--backgroundColor3);
+    width: 80%;
+    padding: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+
+    align-items: center;
+    text-align: center;
+    border-radius: 17px;
+
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 0;
+
+    font-size: 12px;
+}
+
+.button h2{
+    color: var(--whiteText);
+    text-align: center;
+}
+
+input[type="submit"] {
+    padding: 10px 20px; margin-top: 10px;
+}
+
+
+
+    /* Sfondo scuro trasparente */
+    .modal {
+        display: none; /* nascosto di default */
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Contenuto del modale */
+    .modal-content {
+        background-color: var(--backgroundColor2);
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 20px;
+        width: 80%;
+        max-width: 400px;
+        color: var(--whiteText);
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        position: relative;
+        font-family: "Sometype Mono", monospace;
+    }
+
+    /* Pulsante per chiudere (X) */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: var(--whiteText);
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    /* Form style */
+    .modal-content form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .modal-content input[type="number"],
+    .modal-content select {
+        padding: 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: var(--backgroundColor3);
+        color: var(--whiteText);
+    }
+
+    /* Bottone submit */
+    .modal-content input[type="submit"] {
+        background-color: var(--greenText);
+        color: black;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        cursor: pointer;
+    }
+
+/* Quando la larghezza della finestra è minore o uguale a 430px */
+@media (max-width: 430px) {
+    body {
+        width: 100%;
+    }
+
+    .btn-box{
+        margin-top: 76%;
+    }
+}

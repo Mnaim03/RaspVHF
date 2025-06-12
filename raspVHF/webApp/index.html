@@ -2,34 +2,70 @@
 
 <head>
   <title>Dati Frequenza</title>
-  <style>
-    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-    .box { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  <link rel="stylesheet" href="style/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    input[type="submit"] { padding: 10px 20px; margin-top: 10px; }
-  </style>
-  <script>
-    function aggiornaDati() {
-      fetch("getData.php")
-        .then(res => res.json())
-        .then(dati => {
-          console.log(dati);  // <--- stampa in console
-          document.getElementById("valore").textContent = dati.frequence_num + " " + dati.freuqnece_hz;
-          document.getElementById("anomalia").textContent = dati.anomalia === "true" ? "Anomalia Rilevata" : "No Anomalie";
-        });
-    }
+  <script src="script/modal.js"></script>
+  <script src="script/data.js"></script>
 
-    setInterval(aggiornaDati, 1000);
-    window.onload = aggiornaDati;
-  </script>
 </head>
 <body>
+  <img src="style/logo.png" id="logo" alt="Logo"/>
+
   <div class="box">
-    <h2>Frequenza Attuale</h2>
-    <p><strong>Valore:</strong> <span id="valore">--</span></p>
-    <p><strong>Stato:</strong> <span id="anomalia">--</span></p>
+    <h2><span id="anomalia">--</span></h2>
+    <h2 style="font-weight: 400">f = <span id="valore">--</span></h2>
   </div>
 
+
+  <div class="btn-box">
+    <div class="button" onclick="openModal()"><h2>Aggiorna Inputs</h2></div>
+
+    <a href="logs.txt">
+      <div class="button"><h2 style="font-weight: 400">Logs Intercettazioni</h2></div>
+    </a>
+
+    <h3>Progetto Tirocinio UNISA 2025</h3>
+  </div>
+
+
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <h2>Aggiorna Input</h2>
+
+      <form method="POST" action="php/setData.php">
+        <label for="frequence_num">Frequenza :</label>
+        <input type="number" id="frequence_num" name="frequence_num" required>
+
+        <label for="freuqnece_hz">Hertz :</label>
+        <select id="freuqnece_hz" name="scelta" required>
+          <option value="" disabled selected>Seleziona</option>
+          <option value="Hz">Hz</option>
+          <option value="KHz">KHz</option>
+          <option value="MHz">MHz</option>
+          <option value="GHz">GHz</option>
+        </select>
+
+        <input type="submit" value="Invia">
+      </form>
+
+      <span class="close" onclick="closeModal()">&times;</span>
+    </div>
+  </div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!--
 <form method="POST" action="setData.php">
   <h3>Modifica Frequenza</h3>
   <label>Valore numerico:</label>
@@ -40,6 +76,4 @@
 
   <input type="submit" value="Aggiorna File">
 </form>
-</body>
-</html>
-
+-->
