@@ -18,8 +18,6 @@ def unit_to_multiplier(unit):
     }.get(unit, 1)  # default = 1 Hz
 
 def set_freuqneza_sdr(sdr):
-    sdr.gain = 'auto'
-    sdr.sample_rate = 2.4e6
 
     # Ottieni input
     input_freq = get_frequence_num()
@@ -28,3 +26,6 @@ def set_freuqneza_sdr(sdr):
     # Calcolo finale
     input_hz = unit_to_multiplier(input_unit)
     sdr.center_freq = int(input_freq * input_hz)
+
+    sdr.gain = 'auto'
+    sdr.sample_rate = 2.4 * input_hz
