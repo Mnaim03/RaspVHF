@@ -3,9 +3,8 @@ import numpy as np
 import time
 from collections import deque
 
-from mainHandler import *
-from paramHandler import *
-from checkHandler import *
+from Handler.paramHandler import *
+from Handler.checkHandler import *
 
 # Configurazione SDR
 sdr = RtlSdr()
