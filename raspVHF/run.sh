@@ -12,8 +12,8 @@ chmod +x Handler/arduinoHandler.py
 chmod +x Handler/checkHandler.py
 chmod +x arduino/arduino.ino
 
-sudo chmod 666 /var/www/html/outputData
-sudo chmod 666 /var/www/html/inputData
+#permesso per modificare il file Data nella cartella Apache, web server
+sudo chmod 666 /var/www/html/Data
 
 # L’opzione -I (isolated mode) forza Python a ignorare variabili di ambiente che potrebbero stare causando il problema.
 python3 -I -m venv venv
