@@ -1,6 +1,5 @@
 from .mainHandler import get_frequence_num, get_frequence_hz
 
-
 class Parameters:
     THRESHOLD_MARGIN_DB = 10  # Margine sopra rumore stimato
     MIN_BANDWIDTH_HZ = 5000
@@ -8,7 +7,6 @@ class Parameters:
     MIN_PEAK_CONFIRMATIONS = 3  # Quante rilevazioni consecutive per confermare
     COOLDOWN_PERIOD = 2  # Secondi tra allarmi
     NOISE_ESTIMATION_WINDOW = 20  # Numero di blocchi per stimare rumore
-
 
 def unit_to_multiplier(unit):
     unit = unit.lower()
