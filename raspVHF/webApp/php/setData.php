@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<pre>frequence_num = $num\nfreuqnece_hz = $hz</pre>";
     echo '<a href="index.html">Torna alla pagina principale</a>';
 } else {
-    header("Location: index.html");
+    header("Location: ./index.html");
     exit;
 }
 ?>
