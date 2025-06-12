@@ -5,6 +5,7 @@ from collections import deque
 
 from mainHandler import *
 from paramHandler import *
+from checkHandler import *
 
 # Configurazione SDR
 sdr = RtlSdr()
@@ -28,6 +29,9 @@ last_detection_time = 0
 #Arduino
 Arduino = start_Arduino();
 serial_port = "/dev/ttyACM0"
+
+#Check object
+check = Old_Input()
 
 
 def stampa_ascii_spectrum(freqs, power, threshold):
@@ -124,8 +128,11 @@ def main():
 
     try:
         while True:
-            update_arduino(Arduino)
+            #Stampa Arduino in caso necessario
+            if(check.checkOld()):
+                update_arduino(Arduino)
 
+            #VHF/Raspberry
             set_freuqneza_sdr(sdr)
             samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
