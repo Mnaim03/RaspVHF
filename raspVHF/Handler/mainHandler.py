@@ -1,7 +1,6 @@
 import os
 
-percorso_scrittura="/var/www/html/outputData"
-percorso_lettura="/var/www/html/inputData"
+percorso="/var/www/html/Data"
 
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -10,7 +9,7 @@ def modifica_valore(chiave, nuovo_valore):
     righe_modificate = []
     trovato = False
 
-    with open(percorso_scrittura, "r") as f:
+    with open(percorso, "r") as f:
         righe = f.readlines()
 
     for riga in righe:
@@ -23,7 +22,7 @@ def modifica_valore(chiave, nuovo_valore):
     if not trovato:
         righe_modificate.append(f"{chiave} = {nuovo_valore}\n")
 
-    with open(percorso_scrittura, "w") as f:
+    with open(percorso, "w") as f:
         f.writelines(righe_modificate)
 
 
