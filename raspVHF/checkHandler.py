@@ -2,7 +2,7 @@ from mainHandler import *
 from mainVHF import Arduino
 
 
-class Old_Input:
+class OldInput:
 
     def __init__(self):
         self.oldFrequence = get_frequence_num()

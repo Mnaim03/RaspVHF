@@ -27,12 +27,12 @@ detection_count = 0
 last_detection_time = 0
 
 #Arduino
-Arduino = start_Arduino();
+Arduino = start_Arduino()
 serial_port = "/dev/ttyACM0"
 update_arduino(Arduino)
 
 #Check object
-check = Old_Input()
+check = OldInput()
 
 
 def stampa_ascii_spectrum(freqs, power, threshold):
@@ -130,7 +130,7 @@ def main():
     try:
         while True:
             #Stampa Arduino in caso necessario
-            if(check.checkOld()):
+            if check.checkOld():
                 update_arduino(Arduino)
 
             #VHF/Raspberry
