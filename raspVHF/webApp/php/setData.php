@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $num = trim($_POST["frequence_num"]);
-    $hz = trim($_POST["freuqnece_hz"]);
+    $hz = trim($_POST["scelta"]);
 
     $filename = "Data";
 
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<p>✅ File aggiornato con successo!</p>";
     echo "<pre>frequence_num = $num\nfreuqnece_hz = $hz</pre>";
-    echo '<a href="index.html">Torna alla pagina principale</a>';
+    echo '<a href="./index.html">Torna alla pagina principale</a>';
 } else {
     header("Location: ./index.html");
     exit;
