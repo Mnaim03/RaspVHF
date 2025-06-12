@@ -6,8 +6,10 @@ clear #pulisco terminale
 
 #do i permessi ai file
 chmod +x CompileArduino.py
-chmod +x mainHandler.py
-chmod +x paramHandler.py
+chmod +x Handler/mainHandler.py
+chmod +x Handler/paramHandler.py
+chmod +x Handler/arduinoHandler.py
+chmod +x Handler/checkHandler.py
 chmod +x arduino/arduino.ino
 
 sudo chmod 666 /var/www/html/outputData
