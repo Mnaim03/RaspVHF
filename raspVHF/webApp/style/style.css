@@ -98,70 +98,70 @@ input[type="submit"] {
 
 
 
-    /* Sfondo scuro trasparente */
-    .modal {
-        display: none; /* nascosto di default */
-        position: fixed;
-        z-index: 999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.6);
-    }
+/* Sfondo scuro trasparente */
+.modal {
+    display: none; /* nascosto di default */
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
 
-    /* Contenuto del modale */
-    .modal-content {
-        background-color: var(--backgroundColor2);
-        margin: 10% auto;
-        padding: 20px;
-        border-radius: 20px;
-        width: 80%;
-        max-width: 400px;
-        color: var(--whiteText);
-        box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        position: relative;
-        font-family: "Sometype Mono", monospace;
-    }
+/* Contenuto del modale */
+.modal-content {
+    background-color: var(--backgroundColor2);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 400px;
+    color: var(--whiteText);
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    position: relative;
+    font-family: "Sometype Mono", monospace;
+}
 
-    /* Pulsante per chiudere (X) */
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        color: var(--whiteText);
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+/* Pulsante per chiudere (X) */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: var(--whiteText);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    /* Form style */
-    .modal-content form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+/* Form style */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-    .modal-content input[type="number"],
-    .modal-content select {
-        padding: 20px;
-        border: none;
-        border-radius: 10px;
-        background-color: var(--backgroundColor3);
-        color: var(--whiteText);
-    }
+.modal-content input[type="number"],
+.modal-content select {
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--backgroundColor3);
+    color: var(--whiteText);
+}
 
-    /* Bottone submit */
-    .modal-content input[type="submit"] {
-        background-color: var(--greenText);
-        color: black;
-        font-weight: bold;
-        border: none;
-        border-radius: 10px;
-        padding: 20px;
-        cursor: pointer;
-    }
+/* Bottone submit */
+.modal-content input[type="submit"] {
+    background-color: var(--greenText);
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+}
 
 /* Quando la larghezza della finestra è minore o uguale a 430px */
 @media (max-width: 430px) {
@@ -170,6 +170,6 @@ input[type="submit"] {
     }
 
     .btn-box{
-        margin-top: 76%;
+        margin-top: 60%;
     }
 }
