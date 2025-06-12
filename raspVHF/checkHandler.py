@@ -1,8 +1,9 @@
 from mainHandler import *
-from mainVHF import Arduino
-
 
 class OldInput:
+    oldFrequence = 0
+    oldHz = ''
+    oldAnomalia = False
 
     def __init__(self):
         self.oldFrequence = get_frequence_num()
