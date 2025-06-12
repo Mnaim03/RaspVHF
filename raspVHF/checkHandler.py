@@ -1,4 +1,6 @@
 from mainHandler import *
+from mainVHF import Arduino
+
 
 class Old_Input:
 
