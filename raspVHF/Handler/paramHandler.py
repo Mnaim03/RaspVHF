@@ -1,4 +1,4 @@
-from Handler.mainHandler import get_frequence_num, get_frequence_hz
+from .mainHandler import get_frequence_num, get_frequence_hz
 
 
 class Parameters:

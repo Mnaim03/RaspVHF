@@ -1,4 +1,4 @@
-from mainHandler import *
+from .mainHandler import *
 
 class OldInput:
     oldFrequence = 0
