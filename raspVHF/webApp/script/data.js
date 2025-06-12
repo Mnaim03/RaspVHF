@@ -1,5 +1,5 @@
 function aggiornaDati() {
-    fetch("./php/getData.php")
+    fetch("../php/getData.php")
         .then(res => res.json())
         .then(dati => {
             console.log(dati);  // <--- stampa in console
