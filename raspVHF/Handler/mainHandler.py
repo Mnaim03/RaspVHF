@@ -40,7 +40,7 @@ def set_anomalia(stato):  # 'true' o 'false'
 
 def get_frequence_num():
     try:
-        with open(percorso_lettura, "r") as f:
+        with open(percorso, "r") as f:
             for riga in f:
                 if riga.startswith("frequence_num"):
                     return int(riga.strip().split("=")[1].strip())
@@ -50,7 +50,7 @@ def get_frequence_num():
 
 def get_frequence_hz():
     try:
-        with open(percorso_lettura, "r") as f:
+        with open(percorso, "r") as f:
             for riga in f:
                 if riga.startswith("freuqnece_hz"):
                     return riga.strip().split("=")[1].strip()
@@ -60,7 +60,7 @@ def get_frequence_hz():
 
 def get_anomalia():
     try:
-        with open(percorso_scrittura, "r") as f:
+        with open(percorso, "r") as f:
             for riga in f:
                 if riga.startswith("anomalia"):
                     return riga.strip().split("=")[1].strip()
