@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 // Leggi il file
-$filename = "Data";
+$filename = "../Data";
 if (!file_exists($filename)) {
     echo json_encode(["errore" => "File non trovato"]);
     exit;

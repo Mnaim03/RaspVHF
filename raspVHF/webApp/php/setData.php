@@ -3,7 +3,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $num = trim($_POST["frequence_num"]);
     $hz = trim($_POST["freuqnece_hz"]);
 
-    $filename = "Data";
+    $filename = "../Data";
 
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES);
