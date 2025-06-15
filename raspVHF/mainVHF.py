@@ -29,6 +29,7 @@ last_detection_time = 0
 #Arduino
 Arduino = start_Arduino()
 serial_port = "/dev/ttyACM0"
+update_arduino(Arduino)
 
 #Check object
 check = lastInput()
@@ -99,13 +100,14 @@ def rileva_segnale(samples):
 def main():
     global flag_change
 
-    compile_Arduino()
+    #compile_Arduino()
 
     try:
         while True:
             #Stampa Arduino in caso necessario
             if check.checkChange():
                 update_arduino(Arduino)
+                print("HEY MERDA")
 
             #VHF/Raspberry
             set_freuqneza_sdr(sdr)
