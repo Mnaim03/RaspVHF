@@ -31,8 +31,6 @@ void printWait() {
 }
 
 void printFrequenza(){
-  lcd.clear(); // pulisce lo schermo
-
   lcd.setCursor(0, 0);
   lcd.print("f = ");
   lcd.print(frequence);
@@ -115,6 +113,7 @@ void loop() {
 
       while (Serial.available()) Serial.read(); // pulizia
 
+      lcd.clear();
       printFrequenza();
 
       // Gestione segnali
