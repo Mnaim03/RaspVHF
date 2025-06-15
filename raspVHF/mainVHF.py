@@ -29,7 +29,6 @@ last_detection_time = 0
 #Arduino
 Arduino = start_Arduino()
 serial_port = "/dev/ttyACM0"
-update_arduino(Arduino)
 
 #Check object
 check = lastInput()

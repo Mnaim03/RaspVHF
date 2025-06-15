@@ -104,10 +104,6 @@ void loop() {
   while (true) {
     int lav;
 
-    while (!Serial.available()) {
-        delay(500); // evito di stamparlo troppe volte
-    }
-
     // Leggo valori da seriale (frequenza + input)
 
       input = Serial.parseInt();
@@ -129,6 +125,9 @@ void loop() {
       }
     }
 
-    delay(200); // per evitare loop troppo veloci
+    while (!Serial.available()) {
+        delay(500); // evito di stamparlo troppe volte
+    }
+
   }
 }
