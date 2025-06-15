@@ -23,9 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         file_put_contents($filename, implode("\n", $lines));
     }
 
-    echo "<p>✅ File aggiornato con successo!</p>";
-    echo "<pre>frequence_num = $num\nfrequence_hz = $hz</pre>";
-    echo '<a href="../index.html">Torna alla pagina principale</a>';
+    echo "<script>
+        alert('🫐📡 File aggiornato con successo!');
+        window.location.href = '../index.html';
+        </script>";
+
 } else {
     header("Location: ../index.html");
     exit;
