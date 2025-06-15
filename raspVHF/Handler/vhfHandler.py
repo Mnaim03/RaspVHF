@@ -1,3 +1,4 @@
+import np
 from .dataHandler import get_frequence_num, get_frequence_hz
 
 class Parameters:
