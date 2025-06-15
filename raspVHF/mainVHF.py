@@ -100,7 +100,7 @@ def rileva_segnale(samples):
 def main():
     global flag_change
 
-    #compile_Arduino()
+    compile_Arduino()
 
     try:
         while True:
