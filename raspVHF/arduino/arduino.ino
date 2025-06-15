@@ -111,8 +111,6 @@ void loop() {
       frequence = Serial.parseInt();
       hz = Serial.readString();
 
-      while (Serial.available()) Serial.read(); // pulizia
-
       lcd.clear();
       printFrequenza();
 
