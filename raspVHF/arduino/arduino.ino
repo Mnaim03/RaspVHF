@@ -123,11 +123,11 @@ void loop() {
       } else if (input == 3) {
         done();
       }
-    }
 
     while (!Serial.available()) {
         delay(100); // evito di stamparlo troppe volte
     }
-
   }
+
 }
+
