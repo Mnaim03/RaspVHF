@@ -3,7 +3,7 @@ import numpy as np
 import time
 from collections import deque
 
-from Handler.vfhHandler import *
+from Handler.vhfHandler import *
 from Handler.checkHandler import *
 from Handler.arduinoHandler import *
 
