@@ -5,9 +5,8 @@ git pull #faccio una pull di aggiornamento
 clear #pulisco terminale
 
 #do i permessi ai file
-chmod +x CompileArduino.py
-chmod +x Handler/mainHandler.py
-chmod +x Handler/paramHandler.py
+chmod +x Handler/vhfHandler.py
+chmod +x Handler/dataHandler.py
 chmod +x Handler/arduinoHandler.py
 chmod +x Handler/checkHandler.py
 chmod +x arduino/arduino.ino
