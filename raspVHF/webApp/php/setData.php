@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $num = trim($_POST["frequence_num"]);
-    $hz = trim($_POST["freuqnece_hz"]);
+    $hz = trim($_POST["frequence_hz"]);
 
     $filename = "../Data";
 
