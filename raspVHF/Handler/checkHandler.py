@@ -12,7 +12,7 @@ class lastInput:
         return
 
     def checkChange(self):
-        if (self.lastAnomalia != bool(get_anomalia())) or (self.lastFrequence != int(get_frequence_num())) or (self.lastHz != str(get_frequence_hz())):
+        if (bool(self.lastAnomalia) != bool(get_anomalia())) or (int(self.lastFrequence) != int(get_frequence_num())) or (str(self.lastHz) != str(get_frequence_hz())):
             self.__init__()
             return True
         return False
