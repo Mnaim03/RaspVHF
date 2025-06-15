@@ -9,7 +9,6 @@ fqbn = "arduino:avr:uno"
 serial_port = "/dev/ttyACM0"
 
 def start_Arduino():
-    serial_port = "/dev/ttyACM0"
     # Configura la connessione seriale
     Arduino = serial.Serial(serial_port, 9600)
     time.sleep(2)  # Attendi che la connessione si stabilisca
