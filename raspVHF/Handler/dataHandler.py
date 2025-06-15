@@ -25,9 +25,6 @@ def modifica_valore(chiave, nuovo_valore):
     with open(percorso, "w") as f:
         f.writelines(righe_modificate)
 
-
-# GESTIONE FILE CONDIVISI
-
 def set_frequenza_num(nuovo_numero):
     modifica_valore("frequence_num", nuovo_numero)
 

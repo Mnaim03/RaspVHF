@@ -1,9 +1,9 @@
-from .mainHandler import *
+from .dataHandler import *
 
-class OldInput:
-    oldFrequence = 0
-    oldHz = ''
-    oldAnomalia = False
+class lastInput:
+    lastFrequence = 0
+    lastHz = ''
+    lastAnomalia = False
 
     def __init__(self):
         self.oldFrequence = get_frequence_num()
@@ -11,8 +11,8 @@ class OldInput:
         self.oldAnomalia = get_anomalia()
         return
 
-    def checkOld(self):
-        if (self.oldAnomalia != get_anomalia()) or (self.oldFrequence != get_frequence_num()) or (self.oldHz != get_frequence_hz()):
+    def checkChange(self):
+        if (self.lastAnomalia != get_anomalia()) or (self.lastFrequence != get_frequence_num()) or (self.lastHz != get_frequence_hz()):
             self.__init__()
             return True
         return False

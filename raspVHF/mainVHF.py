@@ -3,7 +3,7 @@ import numpy as np
 import time
 from collections import deque
 
-from Handler.paramHandler import *
+from Handler.vfhHandler import *
 from Handler.checkHandler import *
 from Handler.arduinoHandler import *
 
@@ -32,34 +32,7 @@ serial_port = "/dev/ttyACM0"
 update_arduino(Arduino)
 
 #Check object
-check = OldInput()
-
-
-def stampa_ascii_spectrum(freqs, power, threshold):
-    """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
-    # Riduci a 80 punti per il terminale
-    step = len(power) // 80
-    reduced_power = power[::step][:80]
-
-    # 🔧 Centra il grafico sulla soglia (es: da soglia-15 a soglia+5)
-    display_min = threshold - 15
-    display_max = threshold + 5
-    scale = 25  # più righe = grafico più dettagliato
-
-    print("\nSpettro (ASCII):")
-    for level in reversed(np.linspace(display_min, display_max, scale)):
-        line = ""
-        for val in reduced_power:
-            if val >= level:
-                line += "█"
-            elif abs(val - threshold) < 0.5:
-                line += "-"
-            else:
-                line += " "
-        print(f"{level:6.1f} | {line}")
-    print("       +" + "-"*80)
-    print("       |" + " " * 35 + "Frequenza →")
-
+check = lastInput()
 
 def rileva_segnale(samples):
     global detection_count, last_detection_time
@@ -127,10 +100,12 @@ def rileva_segnale(samples):
 def main():
     global flag_change
 
+    # compile_Arduino()
+
     try:
         while True:
             #Stampa Arduino in caso necessario
-            if check.checkOld():
+            if check.checkChange():
                 update_arduino(Arduino)
 
             #VHF/Raspberry
