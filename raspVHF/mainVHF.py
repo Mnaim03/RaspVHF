@@ -28,8 +28,6 @@ last_detection_time = 0
 
 #Arduino
 Arduino = start_Arduino()
-serial_port = "/dev/ttyACM0"
-update_arduino(Arduino)
 
 #Check object
 check = lastInput()
@@ -100,7 +98,8 @@ def rileva_segnale(samples):
 def main():
     global flag_change
 
-    compile_Arduino()
+    #compile_Arduino()
+    update_arduino(Arduino)
 
     try:
         while True:
