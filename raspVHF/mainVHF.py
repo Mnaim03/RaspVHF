@@ -105,7 +105,7 @@ def main():
     try:
         while True:
             #Stampa Arduino in caso necessario
-            if check.checkChange():
+            if check.checkChange() == True:
                 update_arduino(Arduino)
 
             #VHF/Raspberry
