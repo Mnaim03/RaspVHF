@@ -104,12 +104,17 @@ void loop() {
   while (true) {
     int lav;
 
+    while (!Serial.available()) {
+        delay(500); // evito di stamparlo troppe volte
+    }
+
     // Leggo valori da seriale (frequenza + input)
-    if (Serial.available()) {
 
       input = Serial.parseInt();
       frequence = Serial.parseInt();
       hz = Serial.readString();
+
+      while (Serial.available()) Serial.read(); // pulizia
 
       lcd.clear();
       printFrequenza();
