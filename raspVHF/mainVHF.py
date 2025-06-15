@@ -100,12 +100,12 @@ def rileva_segnale(samples):
 def main():
     global flag_change
 
-    # compile_Arduino()
+    compile_Arduino()
 
     try:
         while True:
             #Stampa Arduino in caso necessario
-            if check.checkChange() == True:
+            if check.checkChange():
                 update_arduino(Arduino)
 
             #VHF/Raspberry

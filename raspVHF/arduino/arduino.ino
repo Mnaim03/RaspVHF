@@ -42,7 +42,6 @@ void printFrequenza(){
 }
 
 void fxAlert(){
-  printFrequenza();
   lcd.setCursor(0, 1);
   lcd.print("Intercettazione");
 
@@ -52,7 +51,6 @@ void fxAlert(){
 }
 
 void fxCalm(){
-  printFrequenza();
   lcd.setCursor(0, 1);
   lcd.print("No Anomalie");
 
