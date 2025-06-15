@@ -126,7 +126,7 @@ void loop() {
     }
 
     while (!Serial.available()) {
-        delay(200); // evito di stamparlo troppe volte
+        delay(100); // evito di stamparlo troppe volte
     }
 
   }

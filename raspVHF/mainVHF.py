@@ -98,7 +98,7 @@ def rileva_segnale(samples):
 def main():
     global flag_change
 
-    #compile_Arduino()
+    compile_Arduino()
     update_arduino(Arduino)
 
     try:
