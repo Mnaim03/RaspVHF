@@ -1,6 +1,6 @@
 import numpy as np
 from .dataHandler import get_frequence_num, get_frequence_hz
-from scipy.signal import iirnotch #passa bada per frequenze fisse
+from scipy.signal import iirnotch, lfilter #passa bada per frequenze fisse
 
 class Parameters:
     THRESHOLD_MARGIN_DB = 10  # Margine sopra rumore stimato
@@ -34,14 +34,10 @@ def set_freuqneza_sdr(sdr):
 
 def apply_notch_filter(samples, sample_rate, Q=30):
     try:
-        freq_num = get_frequence_num()
-        freq_unit = get_frequence_hz()
+        notch_freq_relative = 0  # 0 Hz = centro della banda base dopo il downmixing
 
-        if freq_unit is None:
-            raise ValueError("Unità di frequenza nulla")
-
-        f_notch = freq_num * unit_to_multiplier(freq_unit)  # in Hz
-        w0 = f_notch / (sample_rate / 2)
+        # Normalizza rispetto a Nyquist (sample_rate/2)
+        w0 = 0.01 if notch_freq_relative == 0 else abs(notch_freq_relative) / (sample_rate / 2)
 
         if not (0 < w0 < 1):
             raise ValueError(f"w0 fuori range: {w0}")
