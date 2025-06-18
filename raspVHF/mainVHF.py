@@ -113,16 +113,12 @@ def main():
             #VHF/Raspberry
             set_freuqneza_sdr(sdr)
 
-            if np.all(samples == samples[0]):
-                print("[!] Dati SDR saturi o statici, possibile overload da jammer")
-                return
-
             try:
                 samples = sdr.read_samples(1024 * 256)
             except Exception as e:
                 print(f"[!] Errore nella lettura SDR: {e}")
                 return
-            
+
             rileva_segnale(samples)
             time.sleep(0.5)
 
