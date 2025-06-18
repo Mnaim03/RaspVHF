@@ -13,16 +13,16 @@ def unit_to_multiplier(unit):
     unit = unit.lower()
     return {
         "hz": 1,
-        "khz": 1000,
-        "mhz": 1000000,
-        "ghz": 1000000000
+        "khz": 1_000,
+        "mhz": 1_000_000,
+        "ghz": 1_000_000_000
     }.get(unit, 1)  # default = 1 Hz
 
 def set_freuqneza_sdr(sdr):
 
     # Ottieni input
     input_freq = get_frequence_num()
-    input_unit = str(get_frequence_hz())
+    input_unit = get_frequence_hz()
 
     # Calcolo finale
     input_hz = unit_to_multiplier(input_unit)
