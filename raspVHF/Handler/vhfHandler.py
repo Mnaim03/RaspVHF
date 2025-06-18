@@ -28,7 +28,7 @@ def set_freuqneza_sdr(sdr):
     input_hz = unit_to_multiplier(input_unit)
     sdr.center_freq = int(input_freq * input_hz)
 
-    sdr.gain = 5
+    sdr.gain = 'auto'
     sdr.sample_rate = 2.4 * input_hz
 
 def stampa_ascii_spectrum(freqs, power, threshold):
