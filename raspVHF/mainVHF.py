@@ -37,9 +37,6 @@ check = lastInput()
 cont = 0.0
 
 
-def timeout_handler(signum, frame):
-    raise TimeoutError("SDR bloccato")
-
 def rileva_segnale(samples):
     print("globale")
     global detection_count, last_detection_time, cont
@@ -103,7 +100,6 @@ def rileva_segnale(samples):
     # Output per debug (aggiorna in linea)
     # clear_terminal()
     print(f"[✓ Normale] Cont: {cont:.1f} | Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()} ", end='\r')
-
     # stampa_ascii_spectrum(freqs, power, threshold)
     return False
 
@@ -131,7 +127,7 @@ def main():
 
 
             rileva_segnale(samples)
-            time.sleep(2)
+            time.sleep(0.1)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
