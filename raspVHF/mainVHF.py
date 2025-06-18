@@ -33,6 +33,10 @@ Arduino = start_Arduino()
 #Ogetto di cHck
 check = lastInput()
 
+
+def timeout_handler(signum, frame):
+    raise TimeoutError("SDR bloccato")
+
 def rileva_segnale(samples):
     global detection_count, last_detection_time
 
@@ -96,7 +100,6 @@ def rileva_segnale(samples):
     stampa_ascii_spectrum(freqs, power, threshold)
     return False
 
-
 def main():
     global flag_change
 
@@ -113,12 +116,6 @@ def main():
             set_freuqneza_sdr(sdr)
 
             try:
-                # Timeout per evitare blocco infinito
-                import signal
-
-                def timeout_handler(signum, frame):
-                    raise TimeoutError("SDR bloccato")
-
                 signal.signal(signal.SIGALRM, timeout_handler)
                 signal.alarm(3)  # 3 secondi timeout
 
@@ -139,6 +136,9 @@ def main():
                 print(f"[!] Errore nella lettura SDR: {e}")
                 signal.alarm(0)
                 return
+
+            rileva_segnale(samples)
+            time.sleep(0.1)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
