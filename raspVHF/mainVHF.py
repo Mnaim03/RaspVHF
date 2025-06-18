@@ -115,6 +115,15 @@ def main():
                 for _ in range(5):
                     sdr.read_samples(1024)  # scarta sample "vecchi"
                 samples = sdr.read_samples(1024 * 64)
+
+                # 🔍 Check blocco SDR
+                if np.allclose(samples, samples[0], rtol=1e-3):
+                    print("\n[⚠️ ANOMALIA] SDR bloccato o saturato: campioni tutti uguali")
+                    set_anomalia(True)
+                    stampa_ascii_spectrum(np.array([]), np.array([]), 0)  # facoltativo
+                    time.sleep(0.1)
+                    return
+
             except Exception as e:
                 print(f"[!] Errore nella lettura SDR: {e}")
                 return
