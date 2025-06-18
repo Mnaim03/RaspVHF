@@ -114,15 +114,26 @@ def main():
             try:
                 for _ in range(5):
                     sdr.read_samples(1024)  # scarta sample "vecchi"
-                samples = sdr.read_samples(1024 * 64)
 
-                # 🔍 Check blocco SDR
-                if np.allclose(samples, samples[0], rtol=1e-3):
-                    print("\n[⚠️ ANOMALIA] SDR bloccato o saturato: campioni tutti uguali")
-                    set_anomalia(True)
-                    stampa_ascii_spectrum(np.array([]), np.array([]), 0)  # facoltativo
-                    time.sleep(0.1)
-                    return
+                # Aggiungiamo timeout manuale per lettura
+                start_time = time.time()
+                timeout_sec = 2.0
+                samples = None
+                while samples is None:
+                    if time.time() - start_time > timeout_sec:
+                        raise TimeoutError("Timeout nella lettura dei campioni SDR")
+                    try:
+                        samples = sdr.read_samples(1024 * 64)
+                        if np.allclose(samples, samples[0], rtol=1e-3):
+                            raise ValueError("Campioni saturi o tutti uguali")
+                    except ValueError as ve:
+                        print(f"\n[⚠️ ANOMALIA] {ve}")
+                        set_anomalia(True)
+                        stampa_ascii_spectrum(np.array([]), np.array([]), 0)
+                        time.sleep(0.1)
+                        return
+                    except Exception as inner_e:
+                        samples = None  # prova a rileggere
 
             except Exception as e:
                 print(f"[!] Errore nella lettura SDR: {e}")
