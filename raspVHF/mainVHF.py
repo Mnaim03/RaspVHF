@@ -49,13 +49,7 @@ def rileva_segnale(samples):
         stampa_ascii_spectrum(np.array([]), np.array([]), 0)
         return True
 
-    # Check valori estremi (saturazione ADC)
-    max_val = np.max(np.abs(samples))
-    if max_val > 0.95:  # Soglia di saturazione (vicino a 1.0)
-        print(f"\n[⚠️ ANOMALIA] SATURAZIONE ADC - Max: {max_val:.3f}")
-        set_anomalia(True)
-        stampa_ascii_spectrum(np.array([]), np.array([]), 0)
-        return True
+
 
     # Check campioni NaN o infiniti
     if np.any(np.isnan(samples)) or np.any(np.isinf(samples)):
