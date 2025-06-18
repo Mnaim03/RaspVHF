@@ -13,9 +13,9 @@ def unit_to_multiplier(unit):
     unit = unit.lower()
     return {
         "hz": 1,
-        "khz": 1_000,
-        "mhz": 1_000_000,
-        "ghz": 1_000_000_000
+        "khz": 1000,
+        "mhz": 1000000,
+        "ghz": 1000000000
     }.get(unit, 1)  # default = 1 Hz
 
 def set_freuqneza_sdr(sdr):
