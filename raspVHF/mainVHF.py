@@ -34,6 +34,9 @@ Arduino = start_Arduino()
 check = lastInput()
 
 
+def timeout_handler(signum, frame):
+    raise TimeoutError("SDR bloccato")
+
 def rileva_segnale(samples):
     global detection_count, last_detection_time
 
@@ -114,7 +117,7 @@ def main():
 
             try:
                 signal.signal(signal.SIGALRM, timeout_handler)
-                signal.alarm(0.5)  # 3 secondi timeout
+                signal.alarm(1)  # 3 secondi timeout
 
                 for _ in range(5):
                     sdr.read_samples(1024)
