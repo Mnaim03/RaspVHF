@@ -42,6 +42,7 @@ def timeout_handler(signum, frame):
 
 def rileva_segnale(samples):
     global detection_count, last_detection_time, cont
+    cont = cont + 1
 
     # Applico finestra Hann per ridurre leakage
     windowed = samples * np.hanning(len(samples))
@@ -95,7 +96,6 @@ def rileva_segnale(samples):
     else:
         detection_count = 0
         set_anomalia(False)
-        cont = cont + 1
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
