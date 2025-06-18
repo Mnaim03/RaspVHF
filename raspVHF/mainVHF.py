@@ -81,7 +81,7 @@ def rileva_segnale(samples):
 
                 detection_count = 0
                 set_anomalia(True)
-                # stampa_ascii_spectrum(freqs, power, threshold)
+                stampa_ascii_spectrum(freqs, power, threshold)
 
                 return True
 
@@ -91,10 +91,10 @@ def rileva_segnale(samples):
         OLD_MAX_POWER = max_power
 
     # Output per debug (aggiorna in linea)
-    # clear_terminal()
+    clear_terminal()
     print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()}", end='\r')
 
-    # stampa_ascii_spectrum(freqs, power, threshold)
+    stampa_ascii_spectrum(freqs, power, threshold)
     return False
 
 
@@ -112,7 +112,17 @@ def main():
 
             #VHF/Raspberry
             set_freuqneza_sdr(sdr)
-            samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
+
+            if np.all(samples == samples[0]):
+                print("[!] Dati SDR saturi o statici, possibile overload da jammer")
+                return
+
+            try:
+                samples = sdr.read_samples(1024 * 256)
+            except Exception as e:
+                print(f"[!] Errore nella lettura SDR: {e}")
+                return
+            
             rileva_segnale(samples)
             time.sleep(0.5)
 
