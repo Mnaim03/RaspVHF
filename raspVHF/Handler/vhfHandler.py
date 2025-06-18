@@ -5,8 +5,8 @@ class Parameters:
     THRESHOLD_MARGIN_DB = 10  # Margine sopra rumore stimato
     MIN_BANDWIDTH_HZ = 50000
     MAX_BANDWIDTH_HZ = 250000
-    MIN_PEAK_CONFIRMATIONS = 2  # Quante rilevazioni consecutive per confermare
-    COOLDOWN_PERIOD = 1  # Secondi tra allarmi
+    MIN_PEAK_CONFIRMATIONS = 1  # Quante rilevazioni consecutive per confermare
+    COOLDOWN_PERIOD = 3  # Secondi tra allarmi
     NOISE_ESTIMATION_WINDOW = 25  # Numero di blocchi per stimare rumore
 
 def unit_to_multiplier(unit):
