@@ -116,25 +116,27 @@ def main():
             set_freuqneza_sdr(sdr)
 
             try:
-                # Prova a leggere con un semplice try/except
+                signal.signal(signal.SIGALRM, timeout_handler)
+
                 for _ in range(5):
                     sdr.read_samples(1024)
+
+                signal.alarm(1)  # 1 secondi timeout
                 samples = sdr.read_samples(1024 * 64)
 
-                # Controlla se campioni sono validi
-                if len(samples) == 0:
-                    raise Exception("Nessun campione ricevuto")
+                signal.alarm(0)  # Cancella timeout
 
-                # Controlla se SDR è bloccato (tutti campioni uguali)
-                if np.allclose(samples, samples[0], rtol=1e-6):
-                    raise Exception("SDR bloccato - campioni identici")
-
-            except Exception as e:
-                print(f"\n[⚠️ ANOMALIA] {e}")
+            except TimeoutException:
+                print("\n[⚠️ ANOMALIA] SDR BLOCCATO")
                 set_anomalia(True)
-                stampa_ascii_spectrum(np.array([]), np.array([]), 0)
+                signal.alarm(0)
                 time.sleep(1)
                 continue
+
+            except Exception as e:
+                print(f"[!] Errore nella lettura SDR: {e}")
+                signal.alarm(0)
+                return
 
             rileva_segnale(samples)
             time.sleep(0.1)
