@@ -49,7 +49,7 @@ def get_frequence_hz():
     try:
         with open(percorso, "r") as f:
             for riga in f:
-                if riga.startswith("freuqnece_hz"):
+                if riga.startswith("frequence_hz"):
                     return riga.strip().split("=")[1].strip()
     except Exception as e:
         print(f"Errore nella lettura di frequence_hz: {e}")

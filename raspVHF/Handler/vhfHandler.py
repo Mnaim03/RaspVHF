@@ -24,9 +24,6 @@ def set_freuqneza_sdr(sdr):
     input_freq = get_frequence_num()
     input_unit = get_frequence_hz()
 
-    if input_unit is None:
-        raise ValueError("Errore: unità di frequenza non valida (None)")
-
     # Calcolo finale
     input_hz = unit_to_multiplier(input_unit)
     sdr.center_freq = int(input_freq * input_hz)
