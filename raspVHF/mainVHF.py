@@ -116,36 +116,27 @@ def main():
             set_freuqneza_sdr(sdr)
 
             try:
-                # Controlla se SDR risponde prima di leggere
-                start_time = time.time()
+                signal.signal(signal.SIGALRM, timeout_handler)
 
-                # Prova lettura piccola per testare
-                test_samples = sdr.read_samples(256)
-
-                if time.time() - start_time > 2:  # Se ci mette più di 2 sec
-                    raise Exception("SDR troppo lento")
-
-                # Se arriva qui, SDR funziona
-                for _ in range(4):  # 4 invece di 5
+                for _ in range(5):
                     sdr.read_samples(1024)
+
+                signal.alarm(1)  # 1 secondi timeout
                 samples = sdr.read_samples(1024 * 64)
 
-            except Exception as e:
-                print(f"\n[⚠️ ANOMALIA] SDR non risponde: {e}")
+                signal.alarm(0)  # Cancella timeout
+
+            except TimeoutException:
+                print("\n[⚠️ ANOMALIA] SDR BLOCCATO")
                 set_anomalia(True)
-                stampa_ascii_spectrum(np.array([]), np.array([]), 0)
-
-                # Prova a resettare SDR
-                try:
-                    sdr.close()
-                    time.sleep(1)
-                    sdr = RtlSdr()  # Ricrea
-                except:
-                    print("Impossibile resettare SDR")
-                    break
-
-                time.sleep(2)
+                signal.alarm(0)
+                time.sleep(1)
                 continue
+
+            except Exception as e:
+                print(f"[!] Errore nella lettura SDR: {e}")
+                signal.alarm(0)
+                return
 
             rileva_segnale(samples)
             time.sleep(0.1)
