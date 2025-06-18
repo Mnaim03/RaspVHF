@@ -131,7 +131,7 @@ def main():
 
 
             rileva_segnale(samples)
-            time.sleep(2)
+            time.sleep(0.1)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
