@@ -18,7 +18,6 @@ MIN_PEAK_CONFIRMATIONS = Parameters.MIN_PEAK_CONFIRMATIONS
 COOLDOWN_PERIOD = Parameters.COOLDOWN_PERIOD
 # Per stimare rumore in modo stabile, uso una finestra temporale di medie
 NOISE_ESTIMATION_WINDOW = Parameters.NOISE_ESTIMATION_WINDOW
-OLD_MAX_POWER = -1.3
 
 # Code per memorizzare le medie di rumore degli ultimi blocchi
 noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
@@ -71,7 +70,7 @@ def rileva_segnale(samples):
             peak_freq = freqs[np.argmax(power)]
 
             # Conferma più rilevazioni consecutive e rispetto cooldown
-            if (detection_count >= MIN_PEAK_CONFIRMATIONS or (max_power == OLD_MAX_POWER)) and (time.time() - last_detection_time) > COOLDOWN_PERIOD:
+            if (detection_count >= MIN_PEAK_CONFIRMATIONS) and (time.time() - last_detection_time) > COOLDOWN_PERIOD:
 
                 last_detection_time = time.time()
 
@@ -88,7 +87,6 @@ def rileva_segnale(samples):
     else:
         detection_count = 0
         set_anomalia(False)
-        OLD_MAX_POWER = max_power
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
@@ -115,6 +113,7 @@ def main():
 
             try:
                 samples = sdr.read_samples(1024 * 256)
+                samples = apply_notch_filter(samples, sdr.sample_rate)  # notch a 100kHz
             except Exception as e:
                 print(f"[!] Errore nella lettura SDR: {e}")
                 return

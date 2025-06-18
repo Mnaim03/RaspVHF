@@ -18,6 +18,8 @@ sudo chmod 666 /var/www/html/Data
 python3 -I -m venv venv
 source venv/bin/activate
 
+pip install scipy
+
 #avvio file python
 python3 mainVHF.py #sudo perchè va a scrivere nei file di apache
 

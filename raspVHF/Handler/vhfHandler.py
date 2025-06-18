@@ -1,5 +1,6 @@
 import numpy as np
 from .dataHandler import get_frequence_num, get_frequence_hz
+from scipy.signal import iirnotch #passa bada per frequenze fisse
 
 class Parameters:
     THRESHOLD_MARGIN_DB = 10  # Margine sopra rumore stimato
@@ -28,8 +29,12 @@ def set_freuqneza_sdr(sdr):
     input_hz = unit_to_multiplier(input_unit)
     sdr.center_freq = int(input_freq * input_hz)
 
-    sdr.gain = 1
+    sdr.gain = 'auto'
     sdr.sample_rate = 2.4 * input_hz
+
+def apply_notch_filter(samples, sample_rate, Q=30):
+    b, a = iirnotch(get_frequence_num()*unit_to_multiplier(get_frequence_hz()) / (sample_rate / 2), Q)
+    return lfilter(b, a, samples)
 
 def stampa_ascii_spectrum(freqs, power, threshold):
     """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
