@@ -30,7 +30,7 @@ def set_freuqneza_sdr(sdr):
     sdr.center_freq = int(input_freq * input_hz)
 
     sdr.gain = 'auto'
-    sdr.sample_rate = 2.4 * input_hz
+    sdr.sample_rate = 1 * input_hz
 
 def apply_notch_filter(samples, sample_rate, Q=30):
     try:
