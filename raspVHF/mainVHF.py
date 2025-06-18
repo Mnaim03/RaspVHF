@@ -119,28 +119,12 @@ def main():
             #VHF/Raspberry
             set_freuqneza_sdr(sdr)
 
-            try:
-                signal.signal(signal.SIGALRM, timeout_handler)
+            for _ in range(5):
+                sdr.read_samples(1024)
 
-                for _ in range(5):
-                    sdr.read_samples(1024)
+            signal.alarm(1)  # 1 secondi timeout
+            samples = sdr.read_samples(1024 * 64)
 
-                signal.alarm(1)  # 1 secondi timeout
-                samples = sdr.read_samples(1024 * 64)
-
-                signal.alarm(0)  # Cancella timeout
-
-            except TimeoutError:
-                print("\n[⚠️ ANOMALIA] SDR BLOCCATO")
-                set_anomalia(True)
-                signal.alarm(0)
-                time.sleep(1)
-                continue
-
-            except Exception as e:
-                print(f"[!] Errore nella lettura SDR: {e}")
-                signal.alarm(0)
-                return
 
             rileva_segnale(samples)
             time.sleep(0.1)
