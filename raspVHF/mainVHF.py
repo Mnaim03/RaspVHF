@@ -109,7 +109,7 @@ def main():
 
             #VHF/Raspberry
             set_freuqneza_sdr(sdr)
-            samples = sdr.read_samples(1024*256)  # Leggero blocco per elaborare più spesso
+            samples = sdr.read_samples(1024*64)  # Leggero blocco per elaborare più spesso
             rileva_segnale(samples)
             time.sleep(0.5)
 
