@@ -95,7 +95,7 @@ def rileva_segnale(samples):
     else:
         detection_count = 0
         set_anomalia(False)
-        cont += 1
+        cont = cont + 1
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
