@@ -32,23 +32,6 @@ def set_freuqneza_sdr(sdr):
     sdr.gain = 'auto'
     sdr.sample_rate = 2.4 * input_hz
 
-def apply_notch_filter(samples, sample_rate, Q=30):
-    try:
-        notch_freq_relative = 0  # 0 Hz = centro della banda base dopo il downmixing
-
-        # Normalizza rispetto a Nyquist (sample_rate/2)
-        w0 = 0.01 if notch_freq_relative == 0 else abs(notch_freq_relative) / (sample_rate / 2)
-
-        if not (0 < w0 < 1):
-            raise ValueError(f"w0 fuori range: {w0}")
-
-        b, a = iirnotch(w0, Q)
-        return lfilter(b, a, samples)
-
-    except Exception as e:
-        print(f"[!] Errore filtro notch: {e}")
-        return samples  # Se errore, restituisce i campioni non filtrati
-
 def stampa_ascii_spectrum(freqs, power, threshold):
     """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
     # Riduci a 80 punti per il terminale
