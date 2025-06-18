@@ -117,10 +117,11 @@ def main():
 
             try:
                 signal.signal(signal.SIGALRM, timeout_handler)
-                signal.alarm(1)  # 3 secondi timeout
 
                 for _ in range(5):
                     sdr.read_samples(1024)
+
+                signal.alarm(1)  # 1 secondi timeout
                 samples = sdr.read_samples(1024 * 64)
 
                 signal.alarm(0)  # Cancella timeout
