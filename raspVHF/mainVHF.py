@@ -112,14 +112,15 @@ def main():
             set_freuqneza_sdr(sdr)
 
             try:
-                samples = sdr.read_samples(1024 * 256)
-                samples = apply_notch_filter(samples, sdr.sample_rate)  # notch a 100kHz
+                for _ in range(5):
+                    sdr.read_samples(1024)  # scarta sample "vecchi"
+                samples = sdr.read_samples(1024 * 64)
             except Exception as e:
                 print(f"[!] Errore nella lettura SDR: {e}")
                 return
 
             rileva_segnale(samples)
-            time.sleep(0.5)
+            time.sleep(0.1)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
