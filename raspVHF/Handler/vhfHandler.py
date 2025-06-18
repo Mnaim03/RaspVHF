@@ -22,7 +22,7 @@ def set_freuqneza_sdr(sdr):
 
     # Ottieni input
     input_freq = get_frequence_num()
-    input_unit = get_frequence_hz()
+    input_unit = str(get_frequence_hz())
 
     # Calcolo finale
     input_hz = unit_to_multiplier(input_unit)
