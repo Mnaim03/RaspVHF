@@ -33,12 +33,15 @@ Arduino = start_Arduino()
 #Ogetto di cHck
 check = lastInput()
 
+#contatore
+cont = 0.0
+
 
 def timeout_handler(signum, frame):
     raise TimeoutError("SDR bloccato")
 
 def rileva_segnale(samples):
-    global detection_count, last_detection_time
+    global detection_count, last_detection_time, cont
 
     # Applico finestra Hann per ridurre leakage
     windowed = samples * np.hanning(len(samples))
@@ -92,10 +95,11 @@ def rileva_segnale(samples):
     else:
         detection_count = 0
         set_anomalia(False)
+        cont += 1
 
     # Output per debug (aggiorna in linea)
     clear_terminal()
-    print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()} ", end='\r')
+    print(f"[✓ Normale] Cont: {cont:.1f} | Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()} ", end='\r')
 
     stampa_ascii_spectrum(freqs, power, threshold)
     return False
@@ -126,7 +130,7 @@ def main():
 
                 signal.alarm(0)  # Cancella timeout
 
-            except TimeoutException:
+            except TimeoutError:
                 print("\n[⚠️ ANOMALIA] SDR BLOCCATO")
                 set_anomalia(True)
                 signal.alarm(0)
