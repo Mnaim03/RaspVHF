@@ -33,8 +33,25 @@ def set_freuqneza_sdr(sdr):
     sdr.sample_rate = 2.4 * input_hz
 
 def apply_notch_filter(samples, sample_rate, Q=30):
-    b, a = iirnotch(get_frequence_num()*unit_to_multiplier(get_frequence_hz()) / (sample_rate / 2), Q)
-    return lfilter(b, a, samples)
+    try:
+        freq_num = get_frequence_num()
+        freq_unit = get_frequence_hz()
+
+        if freq_unit is None:
+            raise ValueError("Unità di frequenza nulla")
+
+        f_notch = freq_num * unit_to_multiplier(freq_unit)  # in Hz
+        w0 = f_notch / (sample_rate / 2)
+
+        if not (0 < w0 < 1):
+            raise ValueError(f"w0 fuori range: {w0}")
+
+        b, a = iirnotch(w0, Q)
+        return lfilter(b, a, samples)
+
+    except Exception as e:
+        print(f"[!] Errore filtro notch: {e}")
+        return samples  # Se errore, restituisce i campioni non filtrati
 
 def stampa_ascii_spectrum(freqs, power, threshold):
     """Stampa una rappresentazione ASCII dello spettro centrata sulla soglia."""
