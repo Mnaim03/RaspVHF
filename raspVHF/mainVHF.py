@@ -41,9 +41,11 @@ def timeout_handler(signum, frame):
     raise TimeoutError("SDR bloccato")
 
 def rileva_segnale(samples):
+    print("globale")
     global detection_count, last_detection_time, cont
     cont = cont + 1
 
+    print("hanning")
     # Applico finestra Hann per ridurre leakage
     windowed = samples * np.hanning(len(samples))
 
@@ -52,27 +54,22 @@ def rileva_segnale(samples):
     spectrum = np.fft.fftshift(np.fft.fft(windowed))
     power = 10 * np.log10(np.abs(spectrum)**2 + 1e-12)
 
-    print("linspace")
     # Frequenze associate
     freqs = np.linspace(-sdr.sample_rate/2, sdr.sample_rate/2, len(power)) + sdr.center_freq
 
-    print("median")
     # Stima rumore attuale: uso la mediana (meno influenzata dai picchi)
     noise_estimate = np.median(power)
     noise_floor_history.append(noise_estimate)
 
-    print("mean")
     # Rumore medio storico (da ultimi blocchi)
     noise_floor_avg = np.mean(noise_floor_history)
 
-    print("power")
     # Soglia adattiva (media + margine)
     threshold = noise_floor_avg + THRESHOLD_MARGIN_DB
 
     max_power = np.max(power)
     mean_power = np.mean(power)
 
-    print("ifs")
     if max_power > threshold:
         indices = np.where(power > threshold)[0]
         if len(indices) > 1:
