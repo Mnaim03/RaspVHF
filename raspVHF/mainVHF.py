@@ -2,6 +2,7 @@ from rtlsdr import RtlSdr
 import numpy as np
 import time
 from collections import deque
+import signal
 
 from Handler.vhfHandler import *
 from Handler.checkHandler import *
@@ -34,34 +35,6 @@ check = lastInput()
 
 def rileva_segnale(samples):
     global detection_count, last_detection_time
-
-    # 🚨 CONTROLLO SATURAZIONE SDR - Prima di tutto!
-    if len(samples) == 0:
-        print("\n[⚠️ ANOMALIA] Nessun campione ricevuto - SDR bloccato")
-        set_anomalia(True)
-        return True
-
-    # Check saturazione: campioni tutti uguali o valori estremi
-    sample_range = np.max(np.abs(samples)) - np.min(np.abs(samples))
-    if sample_range < 1e-6:  # Quasi tutti uguali
-        print(f"\n[⚠️ ANOMALIA] SDR SATURATO - Range campioni: {sample_range:.2e}")
-        set_anomalia(True)
-        stampa_ascii_spectrum(np.array([]), np.array([]), 0)
-        return True
-
-    # Check valori estremi (saturazione ADC)
-    max_val = np.max(np.abs(samples))
-    if max_val >= 1.0:  # Soglia di saturazione 
-        print(f"\n[⚠️ ANOMALIA] SATURAZIONE ADC - Max: {max_val:.3f}")
-        set_anomalia(True)
-        stampa_ascii_spectrum(np.array([]), np.array([]), 0)
-        return True
-
-    # Check campioni NaN o infiniti
-    if np.any(np.isnan(samples)) or np.any(np.isinf(samples)):
-        print("\n[⚠️ ANOMALIA] Campioni corrotti (NaN/Inf)")
-        set_anomalia(True)
-        return True
 
     # Applico finestra Hann per ridurre leakage
     windowed = samples * np.hanning(len(samples))
@@ -140,28 +113,32 @@ def main():
             set_freuqneza_sdr(sdr)
 
             try:
-                # TIMEOUT per evitare blocchi infiniti
-                start_time = time.time()
-                timeout = 5.0  # 5 secondi
+                # Timeout per evitare blocco infinito
+                import signal
+
+                def timeout_handler(signum, frame):
+                    raise TimeoutError("SDR bloccato")
+
+                signal.signal(signal.SIGALRM, timeout_handler)
+                signal.alarm(3)  # 3 secondi timeout
 
                 for _ in range(5):
-                    if time.time() - start_time > timeout:
-                        raise TimeoutError("Timeout lettura campioni")
                     sdr.read_samples(1024)
-
-                if time.time() - start_time > timeout:
-                    raise TimeoutError("Timeout lettura campioni principali")
-
                 samples = sdr.read_samples(1024 * 64)
 
+                signal.alarm(0)  # Cancella timeout
+
             except TimeoutError:
-                print("\n[⚠️ ANOMALIA] SDR bloccato - Timeout")
+                print("\n[⚠️ ANOMALIA] SDR BLOCCATO")
                 set_anomalia(True)
+                signal.alarm(0)
                 time.sleep(1)
                 continue
 
-            rileva_segnale(samples)
-            time.sleep(0.1)
+            except Exception as e:
+                print(f"[!] Errore nella lettura SDR: {e}")
+                signal.alarm(0)
+                return
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
