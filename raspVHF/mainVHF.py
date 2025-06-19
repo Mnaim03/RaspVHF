@@ -115,9 +115,10 @@ def main():
             #VHF/Raspberry
             set_freuqneza_sdr(sdr)
 
+            #pulisco i sample generati durante l'esecuzione
             for _ in range(5):
                 sdr.read_samples(1024)
-
+            #prendo il sample più recente
             samples = sdr.read_samples(1024 * 64)
 
             rileva_segnale(samples)
