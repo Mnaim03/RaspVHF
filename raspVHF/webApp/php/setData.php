@@ -24,9 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     echo "<script>
-        alert('🫐📡 File aggiornato con successo!');
-        window.location.href = '../index.html';
-        </script>";
+    	alert('🫐📡 File aggiornato con successo!');
+    	window.location.href = '../index.html';
+	</script>";
 
 } else {
     header("Location: ../index.html");
