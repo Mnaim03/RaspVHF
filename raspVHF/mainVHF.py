@@ -2,7 +2,6 @@ from rtlsdr import RtlSdr
 import numpy as np
 import time
 from collections import deque
-import signal
 
 from Handler.vhfHandler import *
 from Handler.checkHandler import *
@@ -119,9 +118,7 @@ def main():
             for _ in range(5):
                 sdr.read_samples(1024)
 
-            signal.alarm(1)  # 1 secondi timeout
             samples = sdr.read_samples(1024 * 64)
-
 
             rileva_segnale(samples)
             time.sleep(0.1)
