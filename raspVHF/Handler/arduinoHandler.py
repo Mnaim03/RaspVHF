@@ -22,8 +22,6 @@ def update_arduino(arduino):
     else:
         flag = 2
 
-    print(f"{get_anomalia()} | {flag}")
-
     arduino.write(f"{flag}\n".encode())
     # stampa seriale
     arduino.write(f"{get_frequence_num()}\n".encode())

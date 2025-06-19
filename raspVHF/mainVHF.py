@@ -33,13 +33,9 @@ Arduino = start_Arduino()
 #Ogetto di cHck
 check = lastInput()
 
-#contatore
-cont = 0.0
-
 
 def rileva_segnale(samples):
-    global detection_count, last_detection_time, cont
-    cont = cont + 1
+    global detection_count, last_detection_time
 
     # Applico finestra Hann per ridurre leakage
     windowed = samples * np.hanning(len(samples))
@@ -84,7 +80,7 @@ def rileva_segnale(samples):
                 print(f"[⚠️ ATTIVITÀ RILEVATA] Frequenza: {peak_freq/1e6:.4f} MHz | "
                       f"BW: {bandwidth/1e3:.1f} kHz | Potenza: {max_power:.1f} dB | "
                       f"Soglia: {threshold:.1f} dB | Rumore medio: {noise_floor_avg:.1f} dB")
-                stampa_ascii_spectrum(freqs, power, threshold)
+                #tampa_ascii_spectrum(freqs, power, threshold)
 
                 detection_count = 0
                 set_anomalia(True)
@@ -95,8 +91,8 @@ def rileva_segnale(samples):
 
         # Output per debug (aggiorna in linea)
         clear_terminal()
-        print(f"[✓ Normale] Cont: {cont:.1f} | Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()} ", end='\r')
-        stampa_ascii_spectrum(freqs, power, threshold)
+        print(f"[✓ Normale] Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()} ", end='\r')
+        # stampa_ascii_spectrum(freqs, power, threshold)
 
         detection_count = 0
         set_anomalia(False)
