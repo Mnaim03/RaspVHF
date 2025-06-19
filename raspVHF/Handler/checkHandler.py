@@ -7,7 +7,6 @@ class lastInput:
         self.lastAnomalia = get_anomalia()
 
     def checkChange(self):
-        print(f"[DEBUG] Anomalia: Last={self.lastAnomalia}, Now={get_anomalia()}")
         if (
             self.lastAnomalia != get_anomalia() or
             self.lastFrequence != int(get_frequence_num()) or
