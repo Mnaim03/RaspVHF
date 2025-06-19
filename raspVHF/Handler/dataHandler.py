@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 percorso="/var/www/html/Data"
-logs="/var/www/html/Logs.txt"
+logs="/var/www/html/logs.txt"
 
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')

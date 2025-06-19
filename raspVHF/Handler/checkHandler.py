@@ -16,3 +16,7 @@ class lastInput:
             return True
         return False
 
+    def checkAnmolia(self):
+        if  self.lastAnomalia != get_anomalia() :
+            return True
+        return False
