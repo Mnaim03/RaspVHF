@@ -73,7 +73,7 @@ def rileva_segnale(samples):
             bandwidth = 0
 
         print(f"{bandwidth}")
-        if (5 * unit_to_multiplier(get_frequence_hz())) < bandwidth < (25 * unit_to_multiplier(get_frequence_hz())):
+        if (MIN_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())) < bandwidth < (MAX_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())):
             detection_count += 1
             peak_freq = freqs[np.argmax(power)]
 
