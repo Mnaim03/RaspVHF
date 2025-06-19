@@ -32,7 +32,7 @@ def set_frequenza_hz(unita):
     modifica_valore("frequence_hz", unita)
 
 def set_anomalia(stato):  # 'true' o 'false'
-    stato_str = "True" if stato else "False"
+    stato_str = "true" if stato else "false"
     modifica_valore("anomalia", stato_str)
 
 def get_frequence_num():
