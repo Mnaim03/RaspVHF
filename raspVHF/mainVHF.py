@@ -65,14 +65,12 @@ def rileva_segnale(samples):
     mean_power = np.mean(power)
 
     if max_power > threshold:
-        print("entrato")
         indices = np.where(power > threshold)[0]
         if len(indices) > 1:
             bandwidth = freqs[indices[-1]] - freqs[indices[0]]
         else:
             bandwidth = 0
 
-        print(f"{bandwidth}")
         if (MIN_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())) < bandwidth < (MAX_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())):
             detection_count += 1
             peak_freq = freqs[np.argmax(power)]
