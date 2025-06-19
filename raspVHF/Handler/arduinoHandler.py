@@ -17,7 +17,7 @@ def start_Arduino():
 def update_arduino(arduino):
     # 1 -> No Anomalia
     # 2 -> Anomalia
-    if get_anomalia() : flag = 1
+    if bool(get_anomalia()) == False : flag = 1
     else: flag = 2
 
     arduino.write(f"{flag}\n".encode())
