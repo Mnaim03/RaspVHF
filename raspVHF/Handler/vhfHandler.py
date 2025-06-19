@@ -3,11 +3,11 @@ from .dataHandler import get_frequence_num, get_frequence_hz
 from scipy.signal import iirnotch, lfilter #passa bada per frequenze fisse
 
 class Parameters:
-    THRESHOLD_MARGIN_DB = 25  # Margine sopra rumore stimato
+    THRESHOLD_MARGIN_DB = 20  # Margine sopra rumore stimato
     MIN_BANDWIDTH_HZ = 2
     MAX_BANDWIDTH_HZ = 25
     MIN_PEAK_CONFIRMATIONS = 1  # Quante rilevazioni consecutive per confermare
-    COOLDOWN_PERIOD = 1  # Secondi tra allarmi
+    COOLDOWN_PERIOD = 0.5  # Secondi tra allarmi
     NOISE_ESTIMATION_WINDOW = 10  # Numero di blocchi per stimare rumore
 
 def unit_to_multiplier(unit):
