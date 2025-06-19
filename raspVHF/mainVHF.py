@@ -65,12 +65,14 @@ def rileva_segnale(samples):
     mean_power = np.mean(power)
 
     if max_power > threshold:
+        print("entrato")
         indices = np.where(power > threshold)[0]
         if len(indices) > 1:
             bandwidth = freqs[indices[-1]] - freqs[indices[0]]
         else:
             bandwidth = 0
 
+        print(f"{bandwidth}")
         if (MIN_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())) < bandwidth < (MAX_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())):
             detection_count += 1
             peak_freq = freqs[np.argmax(power)]
@@ -86,7 +88,7 @@ def rileva_segnale(samples):
                       f"Soglia: {threshold:.1f} dB | Rumore medio: {noise_floor_avg:.1f} dB")
 
                 detection_count = 0
-                set_anomalia(True, Arduino)
+                set_anomalia(True)
                 stampa_ascii_spectrum(freqs, power, threshold)
 
                 return True
@@ -99,7 +101,7 @@ def rileva_segnale(samples):
         stampa_ascii_spectrum(freqs, power, threshold)
 
         detection_count = 0
-        set_anomalia(False, Arduino)
+        set_anomalia(False)
 
     return False
 

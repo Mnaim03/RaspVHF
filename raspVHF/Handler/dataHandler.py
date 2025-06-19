@@ -1,8 +1,5 @@
 import os
 
-from Handler.arduinoHandler import update_arduino
-from mainVHF import Arduino
-
 percorso="/var/www/html/Data"
 
 def clear_terminal():
@@ -34,11 +31,9 @@ def set_frequenza_num(nuovo_numero):
 def set_frequenza_hz(unita):
     modifica_valore("frequence_hz", unita)
 
-def set_anomalia(stato,Arduino):  # 'true' o 'false'
+def set_anomalia(stato):  # 'true' o 'false'
     stato_str = "true" if stato else "false"
     modifica_valore("anomalia", stato_str)
-
-    update_arduino(Arduino)
 
 def get_frequence_num():
     try:
