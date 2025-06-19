@@ -38,15 +38,12 @@ cont = 0.0
 
 
 def rileva_segnale(samples):
-    print("globale")
     global detection_count, last_detection_time, cont
     cont = cont + 1
 
-    print("hanning")
     # Applico finestra Hann per ridurre leakage
     windowed = samples * np.hanning(len(samples))
 
-    print("FFT")
     # FFT e spettro in potenza (dB)
     spectrum = np.fft.fftshift(np.fft.fft(windowed))
     power = 10 * np.log10(np.abs(spectrum)**2 + 1e-12)
