@@ -84,10 +84,10 @@ def rileva_segnale(samples):
                 print(f"[⚠️ ATTIVITÀ RILEVATA] Frequenza: {peak_freq/1e6:.4f} MHz | "
                       f"BW: {bandwidth/1e3:.1f} kHz | Potenza: {max_power:.1f} dB | "
                       f"Soglia: {threshold:.1f} dB | Rumore medio: {noise_floor_avg:.1f} dB")
+                stampa_ascii_spectrum(freqs, power, threshold)
 
                 detection_count = 0
                 set_anomalia(True)
-                stampa_ascii_spectrum(freqs, power, threshold)
 
                 return True
 
