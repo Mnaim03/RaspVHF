@@ -30,7 +30,7 @@ last_detection_time = 0
 #Arduino
 Arduino = start_Arduino()
 
-#Ogetto di cHck
+#Ogetto di lastInput()
 check = lastInput()
 
 

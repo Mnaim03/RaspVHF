@@ -35,7 +35,10 @@ def end_Arduino(arduino):
 
     # stampa seriale
     # 3 -> Fine Ricezione
+    print("1")
     arduino.write(f"{3}\n".encode())  # printo fine esecuzione
+    print("2")
+    time.sleep(1)
 
 def compile_Arduino():
     # Compilazione

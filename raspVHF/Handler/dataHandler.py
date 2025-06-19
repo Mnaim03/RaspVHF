@@ -50,7 +50,6 @@ def update_logs():
     with open(logs, "w") as f:
         f.write(riga.strip() + "\n" + contenuto)
 
-
 def get_frequence_num():
     try:
         with open(percorso, "r") as f:
