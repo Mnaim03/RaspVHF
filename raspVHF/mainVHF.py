@@ -12,7 +12,6 @@ from Handler.arduinoHandler import *
 sdr = RtlSdr()
 
 # Parametri
-Parameters = Parameters()
 THRESHOLD_MARGIN_DB = Parameters.THRESHOLD_MARGIN_DB
 MIN_BANDWIDTH_HZ = Parameters.MIN_BANDWIDTH_HZ
 MAX_BANDWIDTH_HZ = Parameters.MAX_BANDWIDTH_HZ
