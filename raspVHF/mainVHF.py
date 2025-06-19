@@ -82,6 +82,7 @@ def rileva_segnale(samples):
 
                 last_detection_time = time.time()
 
+                clear_terminal()
                 print(f"[⚠️ ATTIVITÀ RILEVATA] Frequenza: {peak_freq/1e6:.4f} MHz | "
                       f"BW: {bandwidth/1e3:.1f} kHz | Potenza: {max_power:.1f} dB | "
                       f"Soglia: {threshold:.1f} dB | Rumore medio: {noise_floor_avg:.1f} dB")
@@ -93,14 +94,14 @@ def rileva_segnale(samples):
                 return True
 
     else:
+
+        # Output per debug (aggiorna in linea)
+        clear_terminal()
+        print(f"[✓ Normale] Cont: {cont:.1f} | Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()} ", end='\r')
+        stampa_ascii_spectrum(freqs, power, threshold)
+
         detection_count = 0
         set_anomalia(False)
-
-    # Output per debug (aggiorna in linea)
-    clear_terminal()
-    print(f"[✓ Normale] Cont: {cont:.1f} | Max: {max_power:.1f} dB | Soglia: {threshold:.1f} dB | Rumore: {noise_floor_avg:.1f} dB | Freq: {get_frequence_num()} {get_frequence_hz()} ", end='\r')
-    stampa_ascii_spectrum(freqs, power, threshold)
-    set_anomalia(False)
 
     return False
 
