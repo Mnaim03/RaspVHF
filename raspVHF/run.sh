@@ -13,6 +13,7 @@ chmod +x arduino/arduino.ino
 
 #permesso per modificare il file Data nella cartella Apache, web server
 sudo chmod 666 /var/www/html/Data
+sudo chmod 666 /var/www/html/logs.txt
 
 # L’opzione -I (isolated mode) forza Python a ignorare variabili di ambiente che potrebbero stare causando il problema.
 python3 -I -m venv venv

@@ -1,6 +1,8 @@
 import os
+from datetime import datetime
 
 percorso="/var/www/html/Data"
+logs="/var/www/html/Logs.txt"
 
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -34,6 +36,20 @@ def set_frequenza_hz(unita):
 def set_anomalia(stato):  # 'true' o 'false'
     stato_str = "true" if stato else "false"
     modifica_valore("anomalia", stato_str)
+
+def update_logs():
+    try:
+        with open(logs, "r") as f:
+            contenuto = f.read()
+    except FileNotFoundError:
+        contenuto = ""
+
+    timestamp = datetime.now().strftime("[%Y-%m-%d %H:%M:%S]")
+    riga = f"{timestamp}: Anomalia su {get_frequence_num()} {get_frequence_hz()}"
+
+    with open(logs, "w") as f:
+        f.write(riga.strip() + "\n" + contenuto)
+
 
 def get_frequence_num():
     try:
