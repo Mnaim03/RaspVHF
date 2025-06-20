@@ -210,7 +210,7 @@ input[type="submit"] {
 }
 
 
-#logs {
+.logs {
     margin-top: 20px;
     white-space: pre-wrap;
     color: var(--greenText);
