@@ -9,7 +9,11 @@ function aggiornaDati() {
         }
 
         document.getElementById("valore").textContent = (dati.frequence_num ?? "--") + " " + (dati.frequence_hz ?? "(missing)");
-        document.getElementById("anomalia").textContent = dati.anomalia === "true" ? "Anomalia Rilevata" : "No Anomalie";
+        const anomaliaEl = document.getElementById("anomalia");
+
+        const anomaliaPresente = dati.anomalia === "true";
+        anomaliaEl.textContent = anomaliaPresente ? "Anomalia Rilevata" : "No Anomalie";
+        anomaliaEl.style.color = anomaliaPresente ? "#fa7970" : "#7ce38b";
         });
 }
 
