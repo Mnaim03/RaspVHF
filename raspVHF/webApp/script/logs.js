@@ -23,7 +23,7 @@ document.getElementById("clearLogsBtn").addEventListener("click", () => {
             .then(async response => {
                 if (response.success) {
                     document.getElementById("logs").innerHTML = "Log cancellati.";
-                    await sleep(2000);
+                    await sleep(4000);
                 } else {
                     document.getElementById("logs").innerHTML = "Errore: " + (response.error || "Impossibile cancellare i log.");
                 }
