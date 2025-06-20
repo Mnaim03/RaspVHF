@@ -15,3 +15,20 @@ function aggiornaLogs() {
 
 setInterval(aggiornaLogs, 1000);
 window.onload = aggiornaLogs;
+
+document.getElementById("clearLogsBtn").addEventListener("click", () => {
+    if (confirm("Sei sicuro di voler cancellare tutti i log?")) {
+        fetch("../php/clearLogs.php", { method: "POST" })
+            .then(res => res.json())
+            .then(response => {
+                if (response.success) {
+                    document.getElementById("logs").innerHTML = "Log cancellati.";
+                } else {
+                    document.getElementById("logs").innerHTML = "Errore: " + (response.error || "Impossibile cancellare i log.");
+                }
+            })
+            .catch(err => {
+                document.getElementById("logs").innerHTML = "Errore nella richiesta: " + err;
+            });
+    }
+});

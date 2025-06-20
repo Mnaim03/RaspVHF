@@ -22,10 +22,24 @@
             margin-top: 20px;
             white-space: pre-wrap;
         }
+        #clearLogsBtn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        #clearLogsBtn:hover {
+            background-color: #cc0000;
+        }
     </style>
 </head>
 <body>
 <h1>Logs in tempo reale</h1>
+<button id="clearLogsBtn">Cancella Logs</button>
 <div id="logs">Caricamento...</div>
 </body>
 </html>
