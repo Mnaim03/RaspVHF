@@ -3,7 +3,7 @@ from .dataHandler import get_frequence_num, get_frequence_hz
 from scipy.signal import iirnotch, lfilter #passa bada per frequenze fisse
 
 class Parameters:
-    THRESHOLD_MARGIN_DB = 20  # Margine sopra rumore stimato
+    THRESHOLD_MARGIN_DB = 30  # Margine sopra rumore stimato
     MIN_BANDWIDTH_HZ = 2
     MAX_BANDWIDTH_HZ = 25
     MIN_PEAK_CONFIRMATIONS = 1  # Quante rilevazioni consecutive per confermare

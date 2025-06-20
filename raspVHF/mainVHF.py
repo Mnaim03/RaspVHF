@@ -131,6 +131,7 @@ def main():
     finally:
         sdr.close()
         Arduino.close()
+        set_anomalia(False)
         print("Dispositivo SDR e Arduino rilasciato")
 
 
