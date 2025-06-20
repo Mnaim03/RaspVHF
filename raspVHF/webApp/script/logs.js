@@ -20,9 +20,10 @@ document.getElementById("clearLogsBtn").addEventListener("click", () => {
     if (confirm("Sei sicuro di voler cancellare tutti i log?")) {
         fetch("../php/clearLogs.php", { method: "POST" })
             .then(res => res.json())
-            .then(response => {
+            .then(async response => {
                 if (response.success) {
                     document.getElementById("logs").innerHTML = "Log cancellati.";
+                    await sleep(2000);
                 } else {
                     document.getElementById("logs").innerHTML = "Errore: " + (response.error || "Impossibile cancellare i log.");
                 }
