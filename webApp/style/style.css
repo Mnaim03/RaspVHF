@@ -214,6 +214,9 @@ input[type="submit"] {
     margin-top: 20px;
     white-space: pre-wrap;
     color: var(--greenText);
+
+    max-height: 300px;         /* altezza fissa */
+    overflow-y: auto;          /* scroll verticale se necessario */
 }
 
 
