@@ -38,7 +38,7 @@
     <div class="modal-content">
       <h2>Aggiorna Input</h2>
 
-      <form method="POST" action="php/setData.php">
+      <form method="POST" action="php/setData.php" onsubmit="return validaFrequenza();">
         <label for="frequence_num">Frequenza :</label>
         <input type="number" id="frequence_num" name="frequence_num" required>
 
@@ -58,7 +58,7 @@
     </div>
   </div>
 
+  <script src="script/check.js"></script>
 
 </body>
 </html>
-
