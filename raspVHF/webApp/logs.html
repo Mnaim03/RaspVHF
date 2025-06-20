@@ -2,44 +2,28 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Visualizzatore Logs</title>
+    <title>Logs</title>
     <script src="script/logs.js" defer></script>
     <link rel="stylesheet" href="style/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <style>
-        body {
-            font-family: monospace;
-            background-color: #1e1e1e;
-            color: #00ff00;
-            padding: 20px;
-        }
-        h1 {
-            color: #ffffff;
-        }
-        #logs {
-            margin-top: 20px;
-            white-space: pre-wrap;
-        }
-        #clearLogsBtn {
-            background-color: #ff4444;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        #clearLogsBtn:hover {
-            background-color: #cc0000;
-        }
-    </style>
 </head>
 <body>
-<h1>Logs in tempo reale</h1>
-<button id="clearLogsBtn">Cancella Logs</button>
-<div id="logs">Caricamento...</div>
+
+<div class="tit-box">
+    <h2>Intercettazioni Registrate</h2>
+</div>
+
+
+<div id="logs" class="box">
+    Caricamento...
+</div>
+
+<div class="btn-box">
+    <a href="logs.txt" download>
+        <button id="downloadLogsBtn" class="button"><h2>Download</h2></button>
+    </a>
+    <button id="clearLogsBtn" class="button"><h2 class="delete">Reset</h2></button>
+</div>
+
 </body>
 </html>
