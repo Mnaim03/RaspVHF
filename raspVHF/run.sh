@@ -1,4 +1,6 @@
-cd /home/user1/Documents/RaspVHF/raspVHF #cartella del git
+cd /home/user1/Documents/RaspVHF/raspVHF #path del programma da eseguire
+
+#Aggiorno il programma in caso di modifiche del codice direttamente dalla Repo GitHub
 git restore . #elimino eventuali cambiamenti fatti dal terminale raspberry
 git pull #faccio una pull di aggiornamento
 
@@ -15,11 +17,11 @@ chmod +x arduino/arduino.ino
 sudo chmod 666 /var/www/html/Data
 sudo chmod 666 /var/www/html/logs.txt
 
-# L’opzione -I (isolated mode) forza Python a ignorare variabili di ambiente che potrebbero stare causando il problema.
+# L’opzione -I (isolated mode) forza Python a ignorare variabili che potrebbero causare problemi
 python3 -I -m venv venv
 source venv/bin/activate
 
 #avvio file python
-python3 mainVHF.py #sudo perchè va a scrivere nei file di apache
+python3 main.py
 
 deactivate
