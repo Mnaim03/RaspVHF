@@ -22,7 +22,7 @@ class Parameters:
         - COOLDOWN_PERIOD: tempo minimo in secondi tra due allarmi.
         - NOISE_ESTIMATION_WINDOW: numero di finestre per stimare il rumore medio.
         """
-        self.THRESHOLD_MARGIN_DB = 30
+        self.THRESHOLD_MARGIN_DB = 25
         self.MIN_BANDWIDTH_HZ = 2
         self.MAX_BANDWIDTH_HZ = 25
         self.MIN_PEAK_CONFIRMATIONS = 1
