@@ -127,7 +127,7 @@ def main():
             samples = sdr.read_samples(1024 * 64)
 
             rileva_segnale(samples)
-            time.sleep(0.1)
+            time.sleep(0.2)
 
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
