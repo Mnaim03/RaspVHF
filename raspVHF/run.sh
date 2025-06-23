@@ -1,3 +1,4 @@
+#!/bin/bash
 cd /home/user1/Documents/RaspVHF/raspVHF #path del programma da eseguire
 
 #Aggiorno il programma in caso di modifiche del codice direttamente dalla Repo GitHub
