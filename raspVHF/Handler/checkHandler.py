@@ -76,7 +76,7 @@ class lastInput:
     - True se lo stato di anomalia è cambiato.
     - False altrimenti.
     """
-    def checkAnmolia(self):
+    def checkAnomalia(self):
         if  self.lastAnomalia != get_anomalia() :
             return True
         return False
