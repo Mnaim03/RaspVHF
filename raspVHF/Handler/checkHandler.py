@@ -58,11 +58,14 @@ class lastInput:
     - False altrimenti.
     """
     def checkFrequence(self):
+        Frequence = int(get_frequence_num())
+        hz = str(get_frequence_hz())
         if (
-                self.lastFrequence != int(get_frequence_num()) or
-                self.lastHz != str(get_frequence_hz())
+                self.lastFrequence != Frequence or
+                self.lastHz != hz
         ):
-            self.__init__()
+            self.lastFrequence = Frequence
+            self.lastHz = hz
             return True
         return False
 
