@@ -74,6 +74,8 @@ class lastInput:
     - False altrimenti.
     """
     def checkAnmolia(self):
-        if  self.lastAnomalia != get_anomalia() :
+        anomalia = get_anomalia()
+        if  self.lastAnomalia != anomalia :
+            self.lastAnomalia = anomalia
             return True
         return False
