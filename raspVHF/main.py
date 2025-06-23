@@ -84,7 +84,7 @@ def rileva_segnale(samples):
 
                 detection_count = 0
                 set_anomalia(True)
-                if check.checkAnmolia() : update_logs()
+                if check.checkAnomalia() : update_logs()
 
                 return True
 
