@@ -108,14 +108,15 @@ def main():
     #compile_Arduino()
     update_arduino(Arduino)
 
+    # VHF/Raspberry
+    set_freuqneza_sdr(sdr)
+
     try:
         while True:
             #Stampa Arduino in caso necessario
             if check.checkChange():
                 update_arduino(Arduino)
 
-            #VHF/Raspberry
-            set_freuqneza_sdr(sdr)
 
             #pulisco i sample generati durante l'esecuzione
             for _ in range(5):
