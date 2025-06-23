@@ -115,8 +115,7 @@ def main():
                 update_arduino(Arduino)
 
             #VHF/Raspberry
-            if checkVHF.checkFrequence():
-                set_freuqneza_sdr(sdr)
+            set_freuqneza_sdr(sdr)
 
             #pulisco i sample generati durante l'esecuzione
             for _ in range(5):
