@@ -32,6 +32,7 @@ Arduino = start_Arduino()
 
 #Ogetto di lastInput()
 check = lastInput()
+checkVHF = lastInput()
 
 
 def rileva_segnale(samples):
@@ -114,7 +115,8 @@ def main():
                 update_arduino(Arduino)
 
             #VHF/Raspberry
-            set_freuqneza_sdr(sdr)
+            if checkVHF.checkChange():
+                set_freuqneza_sdr(sdr)
 
             #pulisco i sample generati durante l'esecuzione
             for _ in range(5):
