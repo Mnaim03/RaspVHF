@@ -12,9 +12,16 @@ sdr = RtlSdr()
 
 #Ogetto Parametri
 Parameters = Parameters()
+THRESHOLD_MARGIN_DB = Parameters.THRESHOLD_MARGIN_DB
+MIN_BANDWIDTH_HZ = Parameters.MIN_BANDWIDTH_HZ
+MAX_BANDWIDTH_HZ = Parameters.MAX_BANDWIDTH_HZ
+MIN_PEAK_CONFIRMATIONS = Parameters.MIN_PEAK_CONFIRMATIONS
+COOLDOWN_PERIOD = Parameters.COOLDOWN_PERIOD
+# Per stimare rumore in modo stabile, uso una finestra temporale di medie
+NOISE_ESTIMATION_WINDOW = Parameters.NOISE_ESTIMATION_WINDOW
 
 # Code per memorizzare le medie di rumore degli ultimi blocchi
-noise_floor_history = deque(maxlen=Parameters.NOISE_ESTIMATION_WINDOW)
+noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 
 #Variabili stato rilevazione: conteggio e distanza temporale tra rilevazioni
 detection_count = 0
@@ -65,7 +72,7 @@ def rileva_segnale(samples):
     noise_floor_avg = np.mean(noise_floor_history)
 
     # Soglia adattiva (media + margine)
-    threshold = noise_floor_avg + Parameters.THRESHOLD_MARGIN_DB
+    threshold = noise_floor_avg + THRESHOLD_MARGIN_DB
 
     max_power = np.max(power)
     mean_power = np.mean(power)
@@ -77,12 +84,12 @@ def rileva_segnale(samples):
         else:
             bandwidth = 0
 
-        if (Parameters.MIN_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())) < bandwidth < (Parameters.MAX_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())):
+        if (MIN_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())) < bandwidth < (MAX_BANDWIDTH_HZ * unit_to_multiplier(get_frequence_hz())):
             detection_count += 1
             peak_freq = freqs[np.argmax(power)]
 
             # Conferma più rilevazioni consecutive e rispetto cooldown
-            if (detection_count >= Parameters.MIN_PEAK_CONFIRMATIONS) and (time.time() - last_detection_time) > Parameters.COOLDOWN_PERIOD:
+            if (detection_count >= MIN_PEAK_CONFIRMATIONS) and (time.time() - last_detection_time) > COOLDOWN_PERIOD:
 
                 last_detection_time = time.time()
 
