@@ -5,6 +5,11 @@ int frequence; //frequnza di lettura
 String hz; // misura di hz
 int input = -1; // valore dato dal raspberry attraverso python
 
+int lastFrequence = -1;
+String lastHz = "";
+int lastInput = -1;
+
+
 const int buzz = 4;
 const int red = 2, green = 3;
 const int rs = 8, en = 9, d4 = 10, d5 = 11, d6 = 12, d7 = 13;
@@ -115,13 +120,21 @@ void loop() {
       lcd.clear();
       printFrequenza();
 
-      // Gestione segnali
-      if (input == 1) {
-        fxCalm();
-      } else if (input == 2) {
-        fxAlert();
-      } else if (input == 3) {
-        done();
+      // Check preventivo anche se non necessario
+      if( lastFrequence!=frequence || lastHz != hz || lastInput != input ){
+        lastFrequence = frequence
+        lastHz = hz
+        lastInput = input
+
+        // Gestione segnali
+        if (input == 1) {
+            fxCalm();
+        } else if (input == 2) {
+            fxAlert();
+        } else if (input == 3) {
+            done();
+        }
+
       }
 
     while (!Serial.available()) {
