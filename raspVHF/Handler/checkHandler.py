@@ -20,12 +20,12 @@ class lastInput:
     def __init__(self):
         self.lastFrequence = int(get_frequence_num())
         self.lastHz = str(get_frequence_hz())
-        self.lastAnomalia = str(get_anomalia())
+        self.lastAnomalia = get_anomalia()
 
     def update(self):
         self.lastFrequence = int(get_frequence_num())
         self.lastHz = str(get_frequence_hz())
-        self.lastAnomalia = str(get_anomalia())
+        self.lastAnomalia = get_anomalia()
 
     """
     Verifica se c'è stato un cambiamento rispetto ai parametri salvati:
@@ -44,7 +44,7 @@ class lastInput:
         if (
                 self.lastAnomalia != str(get_anomalia()) or
                 self.lastFrequence != int(get_frequence_num()) or
-                self.lastHz != str(get_frequence_hz())
+                self.lastHz != get_frequence_hz()
         ):
             self.update()
             return True
@@ -82,7 +82,7 @@ class lastInput:
     - False altrimenti.
     """
     def checkAnomalia(self):
-        anomalia = str(get_anomalia())
+        anomalia = get_anomalia()
         if  self.lastAnomalia != anomalia :
             self.lastAnomalia = anomalia
             return True
