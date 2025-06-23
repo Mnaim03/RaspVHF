@@ -10,7 +10,7 @@ from Handler.arduinoHandler import *
 # Configurazione SDR
 sdr = RtlSdr()
 
-#Ogetto Parametri
+# Parametri
 Parameters = Parameters()
 THRESHOLD_MARGIN_DB = Parameters.THRESHOLD_MARGIN_DB
 MIN_BANDWIDTH_HZ = Parameters.MIN_BANDWIDTH_HZ
@@ -23,34 +23,17 @@ NOISE_ESTIMATION_WINDOW = Parameters.NOISE_ESTIMATION_WINDOW
 # Code per memorizzare le medie di rumore degli ultimi blocchi
 noise_floor_history = deque(maxlen=NOISE_ESTIMATION_WINDOW)
 
-#Variabili stato rilevazione: conteggio e distanza temporale tra rilevazioni
+# Variabili stato
 detection_count = 0
 last_detection_time = 0
 
-#Inzializzo una variabile Arduino
+#Arduino
 Arduino = start_Arduino()
 
-#Ogetto di lastInput dedicato a scartare segnalazioni continue correnti
-checkVHF = lastInput()
-checkArduino = lastInput()
+#Ogetto di lastInput()
+check = lastInput()
 
-"""
-Analizza un blocco di campioni SDR per rilevare segnali anomali.
 
-Funzionamento:
-- Applica una finestra di Hann ai campioni per ridurre il leakage spettrale.
-- Calcola la trasformata di Fourier (FFT) e converte in spettro di potenza (in dB).
-- Stima il livello di rumore medio utilizzando una mediana dei valori.
-- Calcola una soglia adattiva (rumore medio storico + margine definito).
-- Rileva eventuali picchi di potenza superiori alla soglia e ne valuta la larghezza di banda.
-- Se il segnale rientra nei parametri di validità (banda compresa tra minimo e massimo), aggiorna il contatore di rilevazioni.
-- Se le rilevazioni superano la soglia minima e rispettano il tempo di cooldown,
-  conferma l’attività anomala, aggiorna il log e l’interfaccia Arduino.
-
-Restituisce:
-- True se viene rilevata un’anomalia valida.
-- False in caso contrario.
-"""
 def rileva_segnale(samples):
     global detection_count, last_detection_time
 
@@ -101,7 +84,7 @@ def rileva_segnale(samples):
 
                 detection_count = 0
                 set_anomalia(True)
-                if checkVHF.checkAnomalia() : update_logs()
+                if check.checkAnmolia() : update_logs()
 
                 return True
 
@@ -118,52 +101,30 @@ def rileva_segnale(samples):
     return False
 
 
-"""
-Ciclo principale di acquisizione e analisi del segnale SDR.
-
- Funzionamento:
-- Aggiorna i parametri correnti dell'Arduino in base alle impostazioni dell'interfaccia.
-- Configura e aggiorna continuamente la frequenza del ricevitore SDR.
-- Elimina i campioni iniziali obsoleti per evitare dati residui.
-- Acquisisce campioni freschi dal ricevitore e li analizza tramite la funzione rileva_segnale().
-- Se viene rilevata una variazione significativa, aggiorna l'interfaccia Arduino.
-- Gestisce in modo sicuro le interruzioni manuali (KeyboardInterrupt) e rilascia correttamente le risorse.
-- Alla chiusura, reimposta lo stato di anomalia a False e libera sia il dispositivo SDR che l'Arduino.
-
-Nota:
-- Il ciclo è continuo e gira finché non viene interrotto manualmente.
-"""
 def main():
-    #in caso il file .ino è stato aggiornato, ricompilo il file
-    # compile_Arduino()
+    global flag_change
 
-    #aggioro Arduino con gl'ultimi valori inseriti da interfaccia
+    #compile_Arduino()
     update_arduino(Arduino)
-    # Aggiorno costantemente gl'input dell'SDR
-    set_freuqneza_sdr(sdr)
 
     try:
         while True:
-            # Verifo eventiali cambiamenti nell'ultima rilevazione
-            if checkArduino.checkChange():
+            #Stampa Arduino in caso necessario
+            if check.checkChange():
                 update_arduino(Arduino)
 
-            #Verifo eventiali cambiamenti della frequenza in input
-            if checkVHF.checkFrequence() :
-                set_freuqneza_sdr(sdr)
+            #VHF/Raspberry
+            set_freuqneza_sdr(sdr)
 
-            #pulisco i sample vecchi generati durante l'esecuzione
+            #pulisco i sample generati durante l'esecuzione
             for _ in range(5):
                 sdr.read_samples(1024)
-
             #prendo il sample più recente
             samples = sdr.read_samples(1024 * 64)
-            #analizzo sample d'interesse
-            rileva_segnale(samples)
 
+            rileva_segnale(samples)
             time.sleep(0.1)
 
-    #Chiusura da tastiera
     except KeyboardInterrupt:
         print("\nInterruzione manuale")
         end_Arduino(Arduino)
@@ -171,10 +132,12 @@ def main():
     finally:
         sdr.close()
         Arduino.close()
-        #Resetto variabile Anomalia al valore di Default, False
         set_anomalia(False)
         print("Dispositivo SDR e Arduino rilasciato")
 
 
+
+
 if __name__ == "__main__":
     main()
+
