@@ -137,6 +137,10 @@ def main():
 
     try:
         while True:
+            # Verifo eventiali cambiamenti nell'ultima rilevazione
+            if checkArduino.checkChange():
+                update_arduino(Arduino)
+
             #Verifo eventiali cambiamenti della frequenza in input
             if checkVHF.checkFrequence() :
                 set_freuqneza_sdr(sdr)
@@ -149,10 +153,6 @@ def main():
             samples = sdr.read_samples(1024 * 64)
             #analizzo sample d'interesse
             rileva_segnale(samples)
-
-            #Verifo eventiali cambiamenti nell'ultima rilevazione
-            if checkArduino.checkChange():
-                update_arduino(Arduino)
 
             time.sleep(0.1)
 
