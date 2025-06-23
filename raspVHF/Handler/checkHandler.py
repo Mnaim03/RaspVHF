@@ -20,7 +20,12 @@ class lastInput:
     def __init__(self):
         self.lastFrequence = int(get_frequence_num())
         self.lastHz = str(get_frequence_hz())
-        self.lastAnomalia = get_anomalia()
+        self.lastAnomalia = str(get_anomalia())
+
+    def update(self):
+        self.lastFrequence = int(get_frequence_num())
+        self.lastHz = str(get_frequence_hz())
+        self.lastAnomalia = str(get_anomalia())
 
     """
     Verifica se c'è stato un cambiamento rispetto ai parametri salvati:
@@ -37,11 +42,11 @@ class lastInput:
     """
     def checkChange(self):
         if (
-                self.lastAnomalia != get_anomalia() or
+                self.lastAnomalia != str(get_anomalia()) or
                 self.lastFrequence != int(get_frequence_num()) or
                 self.lastHz != str(get_frequence_hz())
         ):
-            self.__init__()
+            self.update()
             return True
         return False
 
@@ -58,13 +63,13 @@ class lastInput:
     - False altrimenti.
     """
     def checkFrequence(self):
-        Frequence = int(get_frequence_num())
+        frequence = int(get_frequence_num())
         hz = str(get_frequence_hz())
         if (
-                self.lastFrequence != Frequence or
+                self.lastFrequence != frequence or
                 self.lastHz != hz
         ):
-            self.lastFrequence = Frequence
+            self.lastFrequence = frequence
             self.lastHz = hz
             return True
         return False
@@ -76,8 +81,8 @@ class lastInput:
     - True se lo stato di anomalia è cambiato.
     - False altrimenti.
     """
-    def checkAnmolia(self):
-        anomalia = get_anomalia()
+    def checkAnomalia(self):
+        anomalia = str(get_anomalia())
         if  self.lastAnomalia != anomalia :
             self.lastAnomalia = anomalia
             return True
