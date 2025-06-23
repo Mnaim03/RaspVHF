@@ -128,7 +128,7 @@ Nota:
 """
 def main():
     #in caso il file .ino è stato aggiornato, ricompilo il file
-    compile_Arduino()
+    # compile_Arduino()
 
     #aggioro Arduino con gl'ultimi valori inseriti da interfaccia
     update_arduino(Arduino)
